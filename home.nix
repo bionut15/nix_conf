@@ -5,12 +5,13 @@
   # manage.
   home.username = "ionut";
   home.homeDirectory = "/home/ionut";
-   home.pointerCursor = {
+  home.pointerCursor = {
     gtk.enable = true;
     name = "Bibata-modern-ice";
     package = pkgs.bibata-cursors;
     size = 22;
   };
+  #Theming
   #GTK 
   gtk.enable = true;
   
@@ -85,9 +86,88 @@
   home.sessionVariables = {
      EDITOR = "neovim";
   };
-
+  xdg.mimeApps = {
+	enable = true;
+#	addedAssociations = {
+#		"application/pdf" = ["zathura.desktop"];
+#		"image/png" = ["nsxiv.desktop"];
+#	};
+	defaultApplications = {
+		"image/png" = ["nsxiv.desktop"];
+		"application/pdf" = ["zathura.desktop"];
+    };
+  };
 
   #Programs configs
+  programs.git = {
+    enable = true;
+    userName = "Ionut";
+    userEmail = "barborionut15@gmail.com";
+  };
+
+  programs.starship = {
+	enable = true;
+    	# Configuration written to ~/.config/starship.toml
+	settings = {
+		add_newline = false;
+	    	format = "$shlvl$shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
+		shlvl = {
+	     		disabled = false;
+	     	 	symbol = "ﰬ";
+	     	 	style = "bright-red bold";
+	    	};
+	   	shell = {
+	   	   disabled = false;
+	   	   format = "$indicator";
+	   	   bash_indicator = "[](bright-white) ";
+	   	};
+	   	username = {
+	   	   style_user = "bright-white bold";
+	   	   style_root = "bright-red bold";
+	   	};
+	   	hostname = {
+	   	   style = "bright-green bold";
+	   	   ssh_only = true;
+	   	};
+	   	nix_shell = {
+	   	   symbol = "";
+	   	   format = "[$symbol$name]($style) ";
+	   	   style = "bright-purple bold";
+	   	};
+	   	git_branch = {
+	   	   only_attached = true;
+	   	   format = "[$symbol$branch]($style) ";
+	   	   symbol = "";
+	   	   style = "bright-yellow bold";
+	   	};
+	   	git_commit = {
+	   	   only_detached = true;
+	   	   format = "[ﰖ$hash]($style) ";
+	   	   style = "bright-yellow bold";
+	   	};
+	   	git_state = {
+	   	   style = "bright-purple bold";
+	   	};
+	   	git_status = {
+	   	   style = "bright-green bold";
+	   	};
+	   	directory = {
+	   	   read_only = " ";
+	   	   truncation_length = 0;
+	   	};
+	   	cmd_duration = {
+	   	   format = "[$duration]($style) ";
+	   	   style = "bright-blue";
+	   	};
+	   	jobs = {
+	   	   style = "bright-green bold";
+	   	};
+	   	character = {
+	   	   success_symbol = "[❯](bright-green bold)";
+	   	   error_symbol = "[❯](bright-red bold)";
+	   	};
+    };
+  };
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -104,12 +184,21 @@
 	};
    };
 
+  programs.wofi ={
+  	enable = true;
+	settings = {
+	};
+  };
   programs.alacritty = {
     enable = true;
     # custom settings
     settings = {
       env.TERM = "xterm-256color";
       window.opacity =0.8;
+      window.padding = {
+		x = 2;
+		y = 2;
+      };
       colors.primary= {
 		background = "#282828";
 		foreground = "#ebdbb2";
