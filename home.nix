@@ -1,16 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "ionut";
   home.homeDirectory = "/home/ionut";
   home.pointerCursor = {
     gtk.enable = true;
     name = "Bibata-modern-ice";
-    package = pkgs.bibata-cursors;
-    size = 22;
-  };
+    package = pkgs.bibata-cursors; size = 22; };
   #Theming
   #GTK 
   gtk.enable = true;
@@ -18,8 +14,8 @@
   gtk.cursorTheme.package = pkgs.bibata-cursors;
   gtk.cursorTheme.name = "Bibata-Modern-Ice";
   
-  gtk.theme.package = pkgs.gruvbox-dark-gtk;
-  gtk.theme.name = "gruvbox-dark-gtk";
+  gtk.theme.name = "Gruvbox-GTK-B";
+  gtk.theme.package = pkgs.gruvbox-gtk-theme;
 
   #QT config
   qt.enable = true;
@@ -84,20 +80,20 @@
   #  /etc/profiles/per-user/ionut/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
+     VISUAL = "neovim";
      EDITOR = "neovim";
   };
+  #XDG settings
+  xdg.mime.enable = true;
   xdg.mimeApps = {
-	enable = true;
-#	addedAssociations = {
-#		"application/pdf" = ["zathura.desktop"];
-#		"image/png" = ["nsxiv.desktop"];
-#	};
-	defaultApplications = {
-		"image/png" = ["nsxiv.desktop"];
-		"application/pdf" = ["zathura.desktop"];
+    enable = true;
+    associations.added = {
+	"application/pdf" = ["org.pwmt.zathura.desktop"];
+    };
+    defaultApplications = {
+	"application/pdf" = ["org.pwmt.zathura.desktop"];
     };
   };
-
   #Programs configs
   programs.git = {
     enable = true;
@@ -113,7 +109,7 @@
 	    	format = "$shlvl$shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
 		shlvl = {
 	     		disabled = false;
-	     	 	symbol = "ﰬ";
+	     	 	symbol = "ﰬ ";
 	     	 	style = "bright-red bold";
 	    	};
 	   	shell = {
@@ -130,19 +126,19 @@
 	   	   ssh_only = true;
 	   	};
 	   	nix_shell = {
-	   	   symbol = "";
+	   	   symbol = " ";
 	   	   format = "[$symbol$name]($style) ";
 	   	   style = "bright-purple bold";
 	   	};
 	   	git_branch = {
 	   	   only_attached = true;
 	   	   format = "[$symbol$branch]($style) ";
-	   	   symbol = "";
+	   	   symbol = " ";
 	   	   style = "bright-yellow bold";
 	   	};
 	   	git_commit = {
 	   	   only_detached = true;
-	   	   format = "[ﰖ$hash]($style) ";
+	   	   format = "[ﰖ $hash]($style) ";
 	   	   style = "bright-yellow bold";
 	   	};
 	   	git_state = {
@@ -152,7 +148,7 @@
 	   	   style = "bright-green bold";
 	   	};
 	   	directory = {
-	   	   read_only = " ";
+	   	   read_only = " ";
 	   	   truncation_length = 0;
 	   	};
 	   	cmd_duration = {
@@ -187,7 +183,33 @@
   programs.wofi ={
   	enable = true;
 	settings = {
+
 	};
+	style = ''
+		* {
+	  font-family: JetBrainsMono;
+	  color: white;
+	  }
+	  
+	  entry {
+		border-radius: 0;
+		font-weight: bold;
+		font: JetBrainsMono;
+	  	background-color: #3c3836;
+		color: #fbf1c7;
+		opacity: 0.9;
+		filter: blur(3.5px);
+	  }
+	  window {
+	      opacity: 0.8;
+	      filter: blur(3.5px);
+	      background-color: #282828;
+	  }
+	  #entry:selected {
+	  	color: #ebdd2;
+	  	background-color: #8ec07c;
+	  }
+	'';
   };
   programs.alacritty = {
     enable = true;
