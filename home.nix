@@ -4,9 +4,10 @@
 home.username = "ionut";
 home.homeDirectory = "/home/ionut";
 home.pointerCursor = {
-gtk.enable = true;
+	gtk.enable = true;
 	name = "Bibata-modern-ice";
-	package = pkgs.bibata-cursors; size = 22; };
+	package = pkgs.bibata-cursors; size = 22; 
+};
 #Theming
 #GTK 
 gtk.enable = true;
@@ -14,9 +15,30 @@ gtk.enable = true;
 gtk.cursorTheme.package = pkgs.bibata-cursors;
 gtk.cursorTheme.name = "Bibata-Modern-Ice";
 
-gtk.theme.name = "Gruvbox-GTK-B";
+gtk.theme.name = "gruvbox-gtk-theme";
 gtk.theme.package = pkgs.gruvbox-gtk-theme;
+gtk ={
+	gtk3 = {
+		extraConfig = {
+			gtk-application-prefer-dark-theme = 1;
+		};
+	};
+	gtk4 = {
+		extraConfig = {
+			gtk-application-prefer-dark-theme = 1;
+		};
+	};
+};
 
+dconf = {
+	enable = true;
+	settings = {
+		"org/gnome/desktop/interface" = {
+		  color-scheme = "prefer-dark";
+		  #gtk-theme = "gruvbox-gtk-theme";
+		};
+	};
+};
 #QT config
 qt.enable = true;
 qt.platformTheme.name = "gtk";
@@ -82,6 +104,7 @@ home.file = {
 home.sessionVariables = {
 	VISUAL = "neovim";
 	EDITOR = "neovim";
+	GTK_THEME = "gruvbox-gtk-theme";
 };
 #XDG settings
 xdg.mime.enable = true;
@@ -187,36 +210,68 @@ programs.wofi ={
 	
 	};
 	style = ''
-		* {
-	  font-family: JetBrainsMono;
-	  color: white;
-	  }
-	  
-	  entry {
-		border-radius: 0;
-		font-weight: bold;
-		font: JetBrainsMono;
-	  	background-color: #3c3836;
-		color: #fbf1c7;
-		opacity: 0.9;
-		filter: blur(3.5px);
-	  }
-	  window {
-	      opacity: 0.8;
-	      filter: blur(3.5px);
-	      background-color: #282828;
-	  }
-	  #entry:selected {
-	  	color: #ebdd2;
-	  	background-color: #8ec07c;
-	  }
+		window {
+		margin: 0px;
+		border-radius:0.4em;
+		border: 1px solid #928374;
+		background-color: #282828;
+		}
+		
+		#input {
+		margin: 5px;
+		border: none;
+		color: #ebdbb2;
+		background-color: #1d2021;
+		}
+		
+		#inner-box {
+		margin: 5px;
+		border: none;
+		background-color: #282828;
+		}
+		
+		#outer-box {
+		margin: 5px;
+		border: none;
+		background-color: #282828;
+		}
+		
+		#scroll {
+		margin: 0px;
+		border: none;
+		}
+		
+		#text {
+		margin: 5px;
+		border: none;
+		color: #ebdbb2;
+		}
+		
+		#entry:selected {
+		background-color: #1d2021;
+		}
+		#entry:unselected {
+		color: black;
+		}
 	'';
+};
+
+programs.lf ={
+	enable = true;
+	keybindings ={
+		"." = "set hidden!";
+		"<esc>" = "cmd-escape";
+	};
 };
 
 programs.alacritty = {
 	enable = true;
 	# custom settings
 	settings = {
+		#optional fish config 
+		#shell = {
+		#	#program = "/run/current-system/sw/bin/fish";
+		#};
 		env.TERM = "xterm-256color";
 		window.opacity =0.8;
 		window.padding = {
@@ -250,15 +305,86 @@ programs.alacritty = {
 		font = {
 		normal = {family = "JetBrainsMono Nerd Font" ;style = "Regular";};
 			size = 12;
-		  #draw_bold_text_with_bright_colors = true;
 		};
 		scrolling.multiplier = 5;
 		selection.save_to_clipboard = true;
+		keyboard = {
+			bindings = [{ key = "F11" ;action = "ToggleFullscreen";}];
+		};
+	};
+};
+
+#Services
+services.dunst = {
+	enable = true;
+	settings = {
+		global = {
+		  rounded = "yes";
+		  origin = "top-right";
+		  alignment = "left";
+		  vertical_alignment = "center";
+		  width = "400";
+		  height = "400";
+		  scale = 0;
+		  gap_size = 0;
+		  progress_bar = true;
+		  transparency = 1;
+		  text_icon_padding = 0;
+		  separator_color = "frame";
+		  sort = "yes";
+		  idle_threshold = 120;
+		  line_height = 0;
+		  markup = "full";
+		  show_age_threshold = 60;
+		  ellipsize = "middle";
+		  ignore_newline = "no";
+		  stack_duplicates = true;
+		  sticky_history = "yes";
+		  history_length = 20;
+		  always_run_script = true;
+		  corner_radius = 10;
+		  follow = "mouse";
+		  font = "Source Sans Pro 10";
+		  format = "<b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
+		  frame_color = "#232323";
+		  frame_width = 1;
+		  offset = "15x15";
+		  horizontal_padding = 10;
+		  icon_position = "left";
+		  indicate_hidden = "yes";
+		  min_icon_size = 0;
+		  max_icon_size = 64;
+		  mouse_left_click = "do_action, close_current";
+		  mouse_middle_click = "close_current";
+		  mouse_right_click = "close_all";
+		  padding = 10;
+		  plain_text = "no";
+		  separator_height = 2;
+		  show_indicators = "yes";
+		  shrink = "no";
+		  word_wrap = "yes";
+		  browser = "/usr/bin/env firefox -new-tab";
+		};
+		
+		fullscreen_delay_everything = {fullscreen = "delay";};
+		
+		urgency_critical = {
+		  background = "#d64e4e";
+		  foreground = "#f0e0e0";
+		};
+		urgency_low = {
+		  background = "#232323";
+		  foreground = "#2596be";
+		};
+		urgency_normal = {
+		  background = "#1e1e2a";
+		  foreground = "#2596be";
+		};
 	};
 };
 
 imports = [
-      #./modules/programs/alacritty.nix
+
 ];
 
 programs.home-manager.enable = true;
