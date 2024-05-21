@@ -206,9 +206,9 @@ programs.waybar = {
 			output = [
 				"eDP-1"
 			];
-			modules-left = [ "hyprland/workspaces" ];
-			modules-center = [ "hyprland/window"];
-			modules-right = [ "tray" "cpu" "memory" "backlight" "pulseaudio"  "battery"  "clock"];
+			modules-left = [ "hyprland/workspaces"  "hyprland/window"];
+			modules-center = [];
+			modules-right = [  "tray" "cpu" "memory" "backlight" "pulseaudio"  "battery"  "clock"];
 			"clock" = {
 				tooltip-format = " {:%H:%M} ";
 				tooltip = true;
@@ -236,8 +236,8 @@ programs.waybar = {
 				format-bluetooth = " {volume}% {icon} {format_source} ";
 				format-bluetooth-muted = " 󰝟  {icon} {format_source} ";
 				format-muted = " 󰝟  {format_source} ";
-				format-source = " {volume}%  ";
-				format-source-muted = "  ";
+				format-source = " {volume}% ";
+				format-source-muted = " ";
 				format-icons = {
 				    headphone = " ";
 				    headset = " ";
@@ -258,10 +258,11 @@ programs.waybar = {
 			};
 			"tray" = {
 				"spacing" = 10;
+				"icon-size" = 18;
 			};
 			"network" = {
 				format-wifi= " ({signalStrength}%)   ";
-				format-ethernet= " {ipaddr}/{cidr} 󰈀  ";
+				format-ethernet= " {essid};  󰈀  ";
 				tooltip-format= " {ifname} via {gwaddr} ";
 				format-linked= " {ifname} (No IP) ";
 				format-disconnected= " Disconnected ⚠ ";
@@ -452,6 +453,14 @@ programs.waybar = {
 		
 		#network {
 		    background-color: #2980b9;
+		    color: #282828;
+		    font-family: JetBrainsMono Nerd Font, monospace;
+		    font-size: 15px;
+		    font-weight: bold;
+		    border: none;
+		    border-bottom: 8px solid #80a295;
+		    border-radius: 4px;
+		    margin-bottom: 2px;
 		}
 		
 		#network.disconnected {
@@ -511,6 +520,8 @@ programs.waybar = {
 		    border-bottom: 8px solid #d05806;
 		    border-radius: 4px;
 		    margin-bottom: 2px;
+		    padding-left: 6px;
+		    padding-right: 6px;
 		}
 		
 		#tray > .passive {
@@ -668,7 +679,7 @@ services.dunst = {
 		  alignment = "left";
 		  vertical_alignment = "center";
 		  width = "400";
-		  height = "400";
+		  height = "500";
 		  scale = 0;
 		  gap_size = 0;
 		  progress_bar = true;
@@ -686,12 +697,12 @@ services.dunst = {
 		  sticky_history = "yes";
 		  history_length = 20;
 		  always_run_script = true;
-		  corner_radius = 10;
+		  corner_radius = 6;
 		  follow = "mouse";
-		  font = "Source Sans Pro 10";
+		  font = "JetBrainsMono";
 		  format = "<b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
-		  frame_color = "#232323";
-		  frame_width = 1;
+		  frame_color = "#8ec07c";
+		  frame_width = 3;
 		  offset = "15x15";
 		  horizontal_padding = 10;
 		  icon_position = "left";
@@ -713,15 +724,15 @@ services.dunst = {
 		fullscreen_delay_everything = {fullscreen = "delay";};
 		
 		urgency_critical = {
-		  background = "#d64e4e";
-		  foreground = "#f0e0e0";
+		  background = "#3c3836";
+		  foreground = "#2596be";
 		};
 		urgency_low = {
-		  background = "#232323";
+		  background = "#3c3836";
 		  foreground = "#2596be";
 		};
 		urgency_normal = {
-		  background = "#1e1e2a";
+		  background = "#3c3836";
 		  foreground = "#2596be";
 		};
 	};
