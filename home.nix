@@ -602,8 +602,8 @@ programs.waybar = {
 		    border-bottom: 8px solid #d05806;
 		    border-radius: 4px;
 		    margin-bottom: 2px;
-		    padding-left: 6px;
-		    padding-right: 6px;
+		    padding-left: 8px;
+		    padding-right: 4px;
 		}
 		
 		#tray > .passive {
@@ -706,9 +706,9 @@ programs.alacritty = {
 	# custom settings
 	settings = {
 		#optional fish config 
-		#shell = {
-		#	#program = "/run/current-system/sw/bin/fish";
-		#};
+		shell = {
+			program = "/run/current-system/sw/bin/fish";
+		};
 		env.TERM = "xterm-256color";
 		window.opacity =0.8;
 		window.padding = {
