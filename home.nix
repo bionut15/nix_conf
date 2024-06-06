@@ -234,14 +234,20 @@ programs.waybar = {
 		mainBar = {
 			layer = "top";
 			position = "bottom";
-			height = 32;
+			height = 33;
 			spacing = 2;
 			output = [
 				"eDP-1"
 			];
-			modules-left = [ "hyprland/workspaces"  "hyprland/window"];
+			modules-left = [ "hyprland/workspaces" "hyprland/window"];
 			modules-center = [];
 			modules-right = [  "tray" "cpu" "memory" "backlight" "pulseaudio"  "battery"  "clock"];
+			"hyprland/workspaces" = {
+				socket = "/tmp/hypr/hypr/_1717678063_1305633501/.socket2.sock";
+			};
+			"hyprland/window" = {
+				socket = "/tmp/hypr/hypr/_1717678063_1305633501/.socket.sock";
+			};
 			"clock" = {
 				tooltip-format = " {:%H:%M} ";
 				tooltip = true;
@@ -703,6 +709,12 @@ programs.alacritty = {
 };
 
 #Services
+services.udiskie = {
+	enable = true;
+	automount = true;
+	notify = true;
+	tray  =  "auto";
+};
 services.dunst = {
 	enable = true;
 	settings = {
