@@ -297,7 +297,7 @@ programs.waybar = {
 			};
 			"tray" = {
 				"spacing" = 10;
-				"icon-size" = 17;
+				"icon-size" = 19;
 			};
 			"network" = {
 				format-wifi= " ({signalStrength}%)   ";
