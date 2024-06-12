@@ -220,6 +220,19 @@ programs.fish = {
 };
 programs.tmux  = {
 	enable = true;
+	keyMode = "vi";
+	mouse = true;
+	extraConfig =  "
+		set -g prefix  C-s
+		set -ga terminal-overrides xterm-256color:Tc;
+
+		bind-key h select-pane -L
+		bind-key j select-pane -D
+		bind-key k select-pane -U
+		bind-key l select-pane -L";
+	plugins = with pkgs;[
+		 tmuxPlugins.tmux-colors-solarized
+	];
 
 };
 #services.hyprlock = {
