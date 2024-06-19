@@ -192,6 +192,7 @@ programs.bash = {
 		then
 		  source $HOME/.config/home-manager/.bashrc
 		fi
+
 	";
 	shellAliases ={
 		v="nvim";
@@ -669,6 +670,11 @@ programs.lf ={
 		"." = "set hidden!";
 		"<esc>" = "cmd-escape";
 	};
+	extraConfig = ''
+	set icons
+	set cleaner '~/.config/lf/cleaner'
+	set previewer '~/.config/lf/scope'
+	'';
 };
 
 programs.alacritty = {
@@ -680,7 +686,7 @@ programs.alacritty = {
 			program = "/run/current-system/sw/bin/fish";
 		};
 		env.TERM = "xterm-256color";
-		window.opacity =0.8;
+		window.opacity =0.85;
 		window.padding = {
 			x = 2;
 			y = 2;
@@ -758,7 +764,7 @@ services.dunst = {
 		  corner_radius = 6;
 		  follow = "mouse";
 		  font = "JetBrainsMono";
-		  format = "<b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
+		  format = "<span foreground='#1d2021'><b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
 		  frame_color = "#8ec07c";
 		  frame_width = 3;
 		  offset = "15x15";
