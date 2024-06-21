@@ -9,7 +9,9 @@ home.homeDirectory = "/home/ionut";
 home.pointerCursor = {
 	gtk.enable = true;
 	name = "Bibata-modern-ice";
-	package = pkgs.bibata-cursors; size = 22; 
+	package = pkgs.bibata-cursors; 
+	size = 22; 
+	x11.defaultCursor = "Bibata-modern-ice";
 };
 #Theming
 #GTK 
@@ -666,17 +668,62 @@ programs.wofi ={
 
 programs.lf ={
 	enable = true;
+	settings = {
+		preview = true;
+		hidden = false;
+		drawbox = true;
+		icons = true;
+		ignorecase = true;
+		ratios = "2:3:5"; 
+		number = true;
+		relativenumber = true;
+		dircounts = true;
+		scrolloff = 10; 
+		sixel = true;
+	};
 	keybindings ={
 		"." = "set hidden!";
 		"<esc>" = "cmd-escape";
 	};
-	extraConfig = ''
-	set icons
-	set cleaner '~/.config/lf/cleaner'
-	set previewer '~/.config/lf/scope'
+	extraConfig = 
+	let 
+	previewer = pkgs.writeShellScriptBin "pv.sh" ''
+        file=$1
+        w=$2
+        h=$3
+        x=$4
+        y=$5
+
+        if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
+            ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+            exit 1
+        fi
+
+        ${pkgs.pistol}/bin/pistol "$file"
+      '';
+      cleaner = pkgs.writeShellScriptBin "clean.sh" ''
+        ${pkgs.ctpv}/bin/ctpvclear
+        ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+      '';
+	in
+	''
+	set cleaner ${cleaner}/bin/clean.sh
+      set previewer ${previewer}/bin/pv.sh
 	'';
 };
 
+programs.kitty = {
+	enable = true;
+	settings = {
+		background_blur = "7" ;
+		dynamic_background_opacity = true;
+		background_opacity = "0.80";
+	};
+	shellIntegration.enableFishIntegration = true;
+	font.name = "JetBrainsMono Nerd Font";
+	font.size = 12;
+	theme = "Gruvbox Dark";
+};
 programs.alacritty = {
 	enable = true;
 	# custom settings
