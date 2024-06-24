@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-gruvbox-dark = import ../theme/gruvbox-plus.css; 
+gruvbox-dark = import ./theme/gruvbox-plus.css; 
 unstable = import <nixos-unstable> {};
 in
 {
@@ -192,7 +192,7 @@ programs.bash = {
 	enable = true;
 	enableCompletion = true;
 	initExtra = "
-		if [ -f $HOME/.config/home-manager/.bashrc ];
+		if [ -f $HOME/.config/home-manager/dotfiles/.bashrc ];
 		then
 		  source $HOME/.config/home-manager/.bashrc
 		fi
@@ -858,7 +858,6 @@ services.dunst = {
 };
 
 imports = [
-	#./modules/dconf.nix
 ];
 
 programs.home-manager.enable = true;

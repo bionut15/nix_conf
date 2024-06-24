@@ -64,12 +64,6 @@
     LC_TIME = "ro_RO.UTF-8";
   };
 
-  # Configure keymap in X11
-
-  # services.xserver.enable = true;
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.displayManager.sddm.wayland.enable = true;
-  # services.xserver.displayManager.sddm.theme = "";
   services.xserver.videoDrivers = [ "nvidia" ];
   # services.xserver = {
   #   layout = "us";
@@ -108,6 +102,7 @@
   # List packages installed in system profile.
 
   environment.systemPackages = with pkgs; [
+
     inputs.prismlauncher.packages.${pkgs.system}.pollymc
     #bluetooth and sound
     pipewire
@@ -294,8 +289,6 @@
   };
   programs.steam = {
     enable = true;
-    #remotePlay.openFirewall = true;
-    #dedicatedServer.openFirewall = true;
   };
   programs.steam.gamescopeSession.enable = true;
   programs.gamemode.enable = true;
@@ -305,13 +298,10 @@
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
     VISUAL = "nvim";
-    TERM = "alacritty";
-
+    TERM = "kitty";
   };
   hardware = {
     graphics.enable = true;
-    #opengl.driSupport = true;
-    #opengl.driSuppdriSupport32Bit = true;
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
     pulseaudio.enable = false;
