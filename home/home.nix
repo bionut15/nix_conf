@@ -53,7 +53,7 @@ home.stateVersion = "23.11"; # Please read the comment before changing.
 
 # The home.packages option allows you to install Nix packages into your
 # environment.
-home.packages = [
+home.packages = with pkgs; [
   # # Adds the 'hello' command to your environment. It prints a friendly
   # # "Hello, world!" when run.
   # pkgs.hello
@@ -202,7 +202,7 @@ programs.bash = {
 	shellAliases ={
 		v="nvim";
 		homec="nvim .config/home-manager/home.nix";
-		nconfig = "sudoedit /etc/nixos/configuration.nix";
+		nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
 	};
 };
 programs.fish = {
@@ -222,9 +222,8 @@ programs.fish = {
 		ll="lsd -l";
 		la="lsd -a";
 		c="clear";
-		homec="nvim $HOME/.config/home-manager/home.nix";
-		nconfig = "sudoedit /etc/nixos/configuration.nix";
-		minecraft = "nix run github:fn2006/PollyMC";
+		homec="nvim $HOME/.config/home-manager/home/home.nix";
+		nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
 	};
 };
 programs.tmux  = {

@@ -103,7 +103,7 @@
 
   environment.systemPackages = with pkgs; [
 
-    inputs.prismlauncher.packages.${pkgs.system}.pollymc
+    inputs.pollymc.packages.${pkgs.system}.pollymc
     #bluetooth and sound
     pipewire
     wireplumber
@@ -301,7 +301,8 @@
     TERM = "kitty";
   };
   hardware = {
-    graphics.enable = true;
+    opengl.enable = true;
+
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
     pulseaudio.enable = false;
