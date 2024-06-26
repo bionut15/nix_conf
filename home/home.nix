@@ -224,6 +224,9 @@ programs.fish = {
 		c="clear";
 		homec="nvim $HOME/.config/home-manager/home/home.nix";
 		nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
+
+		#Nix allias
+		
 	};
 };
 programs.tmux  = {

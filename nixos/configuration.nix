@@ -102,8 +102,6 @@
   # List packages installed in system profile.
 
   environment.systemPackages = with pkgs; [
-
-    inputs.pollymc.packages.${pkgs.system}.pollymc
     #bluetooth and sound
     pipewire
     wireplumber
@@ -173,6 +171,7 @@
     fastfetch
     blender
     lutris
+    inputs.pollymc.packages.${pkgs.system}.pollymc
 
     heroic
     wine
@@ -233,8 +232,16 @@
 
     #Nix Stuff
     home-manager
+    nh
   ];
 
+  #Nix stuff 
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/ionut/.config/home-manager";
+  };
   #Default app
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
@@ -299,6 +306,7 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERM = "kitty";
+    FLAKE="/home/ionut/.config/home-manager";
   };
   hardware = {
     opengl.enable = true;
