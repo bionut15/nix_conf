@@ -193,6 +193,7 @@
     gnome.nautilus
     xfce.thunar
     xfce.tumbler
+    gvfs
 
     #Dev
     rustc
@@ -240,38 +241,27 @@
     nh
   ];
 
-  #Nix stuff 
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/ionut/.config/home-manager";
-  };
-  #Default app
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
-  #Wayland
+#fonts
+  fonts.packages = with pkgs; [
+	  (nerdfonts.override {
+	   fonts = [
+	   "JetBrainsMono"
+	   "Noto"
+	   ];
+	   })
+  ];
+#Wayland
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-  #fonts
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "Noto"
-      ];
-    })
-  ];
-  #PipeWire
+#PipeWire
   security.rtkit.enable = true;
   services.flatpak.enable = true;
   services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+	  enable = true;
+	  audio.enable = true;
+	  alsa.enable = true;
+	  alsa.support32Bit = true;
+	  pulse.enable = true;
   };
 
   services.blueman.enable = true;
@@ -282,18 +272,29 @@
     profileConfig = "Quiet";
     userLedModesConfig = "strobe";
   };
-  #udisks
-  services.udisks2.enable = true;
-  #SSH config
-  programs.ssh.startAgent = true;
-  programs.ssh.knownHosts.ionut.publicKey = "~/home/ionut/.ssh/keygen";
 
+
+  services.udisks2.enable = true;
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplip pkgs.hplipWithPlugin ];
   services.mpd = {
     enable = true;
     startWhenNeeded = true;
   };
+#programs
+  programs.nh = {
+	  enable = true;
+	  clean.enable = true;
+	  clean.extraArgs = "--keep-since 4d --keep 3";
+	  flake = "/home/ionut/.config/home-manager";
+  };
+  programs.neovim = {
+	  enable = true;
+	  defaultEditor = true;
+  };
+#SSH config
+  programs.ssh.startAgent = true;
+  programs.ssh.knownHosts.ionut.publicKey = "~/home/ionut/.ssh/keygen";
   #Hyprland setup
   programs.hyprland = {
     enable = true;
@@ -315,6 +316,7 @@
   };
   hardware = {
     opengl.enable = true;
+    cpu.amd.updateMicrocode = true;
 
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
@@ -324,21 +326,21 @@
         Enable = "Source,Sink,Media,Socket";
       };
     };
-  };
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-  };
-  hardware.nvidia.prime = {
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
+    nvidia = {
+	    modesetting.enable = true;
+	    powerManagement.enable = false;
+	    powerManagement.finegrained = false;
+	    open = false;
+	    nvidiaSettings = true;
+	    prime = {
+		    offload = {
+			    enable = true;
+			    enableOffloadCmd = true;
+		    };
+		    amdgpuBusId = "PCI:5:0:0";
+		    nvidiaBusId = "PCI:1:0:0";
     };
-    amdgpuBusId = "PCI:5:0:0";
-    nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
   environment.etc = {

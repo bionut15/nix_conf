@@ -696,7 +696,15 @@ programs.lf ={
 	keybindings ={
 		"." = "set hidden!";
 		"<esc>" = "cmd-escape";
-		"dd" = "";
+		"<enter>" = "open";
+		c ="copy";
+		x ="cut";
+		D = "%trash-put $fx";
+	};
+	commands = {
+
+	};
+	cmdKeybindings ={
 	};
 	extraConfig = 
 	let 
