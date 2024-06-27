@@ -95,6 +95,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nix.settings.warn-dirty = false;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -118,6 +119,8 @@
     brightnessctl
     networkmanager
     networkmanagerapplet
+    speedtest-cli
+
     lazygit
     git
     starship
@@ -125,7 +128,7 @@
     wl-clipboard
     grim
     slurp
-    sxiv
+    nsxiv
     zathura
     yazi
     lf
@@ -135,6 +138,8 @@
     imagemagick
     ghostscript
     poppler
+    hplipWithPlugin
+    cups
 
     tmux
     mpv
@@ -284,7 +289,7 @@
   programs.ssh.knownHosts.ionut.publicKey = "~/home/ionut/.ssh/keygen";
 
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplipWithPlugin ];
+  services.printing.drivers = [ pkgs.hplip pkgs.hplipWithPlugin ];
   services.mpd = {
     enable = true;
     startWhenNeeded = true;

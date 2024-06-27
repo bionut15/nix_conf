@@ -123,6 +123,9 @@ programs.git = {
 };
 programs.neovim.defaultEditor = true;
 
+#programs.firefox = {
+#	enable = true;
+#};
 programs.starship = {
 	enable = true;
 	     # Configuration written to ~/.config/starship.toml
@@ -226,6 +229,7 @@ programs.fish = {
 		nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
 
 		#Nix allias
+		hm="home-manager";
 		
 	};
 };
@@ -821,7 +825,7 @@ services.dunst = {
 		  corner_radius = 6;
 		  follow = "mouse";
 		  font = "JetBrainsMono";
-		  format = "<span foreground='#1d2021'><b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
+		  format = "<span foreground='#f8f8ff'><b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
 		  frame_color = "#8ec07c";
 		  frame_width = 3;
 		  offset = "15x15";
@@ -846,15 +850,15 @@ services.dunst = {
 		
 		urgency_critical = {
 		  background = "#3c3836";
-		  foreground = "#2596be";
+		  foreground = "#f8f8ff";
 		};
 		urgency_low = {
 		  background = "#3c3836";
-		  foreground = "#2596be";
+		  foreground = "#f8f8ff";
 		};
 		urgency_normal = {
 		  background = "#3c3836";
-		  foreground = "#2596be";
+		  foreground = "#f8f8ff";
 		};
 	};
 };
