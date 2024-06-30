@@ -1,14 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -31,11 +29,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub.enable = true;
-  boot.loader.grub.devices = [ "nodev" ];
+  boot.loader.grub.devices = ["nodev"];
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
 
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -64,7 +62,7 @@
     LC_TIME = "ro_RO.UTF-8";
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   # services.xserver = {
   #   layout = "us";
   #   xkbVariant = "";
@@ -90,7 +88,7 @@
       "wheel"
       "video"
     ];
-    packages = with pkgs; [ ];
+    packages = with pkgs; [];
   };
 
   # Allow unfree packages
@@ -169,10 +167,10 @@
     inkscape
     libreoffice
     librecad
-
     freecad
-    prettierd
+
     firefox
+
     fastfetch
     blender
     lutris
@@ -197,12 +195,18 @@
 
     #Dev
     rustc
+    rustfmt
     clang
     llvm
     cargo
     gcc
     cmake
     gnumake
+    fzf
+    #style formatter
+    lua54Packages.luacheck
+    stylua
+    nodePackages_latest.prettier
 
     #GTK
     gtk2
@@ -239,60 +243,69 @@
     #Nix Stuff
     home-manager
     nh
+    alejandra
   ];
 
-#fonts
+  #fonts
   fonts.packages = with pkgs; [
-	  (nerdfonts.override {
-	   fonts = [
-	   "JetBrainsMono"
-	   "Noto"
-	   ];
-	   })
+    (nerdfonts.override {
+      fonts = [
+        "JetBrainsMono"
+        "Noto"
+      ];
+    })
   ];
-#Wayland
+  #Wayland
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-#PipeWire
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  # Services
+
   security.rtkit.enable = true;
-  services.flatpak.enable = true;
-  services.pipewire = {
-	  enable = true;
-	  audio.enable = true;
-	  alsa.enable = true;
-	  alsa.support32Bit = true;
-	  pulse.enable = true;
+
+  services = {
+    flatpak.enable = true;
+    pipewire = {
+      enable = true;
+      audio.enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      wireplumber.extraConfig = {
+        "monitor.bluez.properties" = {
+          "bluez5.enable-sbc-xq" = true;
+          "bluez5.enable-msbc" = true;
+          "bluez5.enable-hw-volume" = true;
+          "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+        };
+      };
+    };
+    blueman.enable = true;
+    asusd = {
+      enable = true;
+      profileConfig = "Quiet";
+      userLedModesConfig = "strobe";
+    };
+    udisks2.enable = true;
+    printing.enable = true;
+    printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];
+    mpd = {
+      enable = true;
+      startWhenNeeded = true;
+    };
   };
 
-  services.blueman.enable = true;
-
-  #Asus ctl
-  services.asusd = {
-    enable = true;
-    profileConfig = "Quiet";
-    userLedModesConfig = "strobe";
-  };
-
-
-  services.udisks2.enable = true;
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip pkgs.hplipWithPlugin ];
-  services.mpd = {
-    enable = true;
-    startWhenNeeded = true;
-  };
-#programs
+  #programs
   programs.nh = {
-	  enable = true;
-	  clean.enable = true;
-	  clean.extraArgs = "--keep-since 4d --keep 3";
-	  flake = "/home/ionut/.config/home-manager";
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/ionut/.config/home-manager";
   };
   programs.neovim = {
-	  enable = true;
-	  defaultEditor = true;
+    enable = true;
+    defaultEditor = true;
   };
-#SSH config
+  #SSH config
   programs.ssh.startAgent = true;
   programs.ssh.knownHosts.ionut.publicKey = "~/home/ionut/.ssh/keygen";
   #Hyprland setup
@@ -312,46 +325,37 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     TERM = "kitty";
-    FLAKE="/home/ionut/.config/home-manager";
+    FLAKE = "/home/ionut/.config/home-manager";
   };
   hardware = {
     opengl.enable = true;
     cpu.amd.updateMicrocode = true;
 
+    pulseaudio.enable = false;
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
-    pulseaudio.enable = false;
     bluetooth.settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
       };
     };
     nvidia = {
-	    modesetting.enable = true;
-	    powerManagement.enable = false;
-	    powerManagement.finegrained = false;
-	    open = false;
-	    nvidiaSettings = true;
-	    prime = {
-		    offload = {
-			    enable = true;
-			    enableOffloadCmd = true;
-		    };
-		    amdgpuBusId = "PCI:5:0:0";
-		    nvidiaBusId = "PCI:1:0:0";
-    };
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = true;
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        amdgpuBusId = "PCI:5:0:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
     };
   };
-
   environment.etc = {
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-      bluez_monitor.properties = {
-      	["bluez5.enable-sbc-xq"] = true,
-      	["bluez5.enable-msbc"] = true,
-      	["bluez5.enable-hw-volume"] = true,
-      	["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-      }
-    '';
   };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -379,5 +383,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
