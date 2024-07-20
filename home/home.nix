@@ -124,9 +124,6 @@ in {
   };
   programs.neovim.defaultEditor = true;
 
-  #programs.firefox = {
-  #	enable = true;
-  #};
   programs.starship = {
     enable = true;
     # Configuration written to ~/.config/starship.toml
@@ -240,7 +237,6 @@ in {
     extraConfig = "
 		set -g prefix  C-s
 		set -ga terminal-overrides xterm-256color:Tc;
-
 		bind-key h select-pane -L
 		bind-key j select-pane -D
 		bind-key k select-pane -U
@@ -312,7 +308,7 @@ in {
             car = " ";
             default = [" " " " " "];
           };
-          on-click = "pwvucontrol";
+          on-click = "pavucontrol";
         };
         "backlight" = {
           format = " {percent}% {icon}";

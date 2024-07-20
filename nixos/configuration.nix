@@ -25,7 +25,7 @@
   #      '';
   #};
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub.enable = true;
@@ -105,6 +105,7 @@
     pipewire
     wireplumber
     alsaLib
+    pavucontrol
     pwvucontrol
     bluez-tools
     bluez
@@ -122,13 +123,11 @@
     lazygit
     git
     starship
-    chntpw
     wl-clipboard
     grim
     slurp
     nsxiv
     zathura
-    yazi
     lf
     kitty
     trash-cli
@@ -143,6 +142,7 @@
     mpv
     lsd
     cava
+    figlet
     lshw
     pandoc
     texliveTeTeX
@@ -158,7 +158,9 @@
     udisks
     ncdu
     btop
+
     asusctl
+
     discord
     webcord
     signal-desktop
@@ -167,6 +169,7 @@
     inkscape
     libreoffice
     librecad
+    gnome.gnome-calculator
     freecad
 
     firefox
@@ -195,6 +198,7 @@
 
     #Dev
     rustc
+    rust-analyzer
     rustfmt
     clang
     llvm
@@ -205,6 +209,7 @@
     fzf
     #style formatter
     lua54Packages.luacheck
+    lua-language-server
     stylua
     nodePackages_latest.prettier
 
@@ -337,6 +342,7 @@
     bluetooth.settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
       };
     };
     nvidia = {
