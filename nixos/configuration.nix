@@ -25,7 +25,7 @@
   #      '';
   #};
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_9;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub.enable = true;
@@ -256,6 +256,7 @@
     (nerdfonts.override {
       fonts = [
         "JetBrainsMono"
+        "CascadiaMono"
         "Noto"
       ];
     })
@@ -268,6 +269,8 @@
   security.rtkit.enable = true;
 
   services = {
+    logind.lidSwitchExternalPower = "ignore";
+    logind.lidSwitchDocked = "ignore";
     flatpak.enable = true;
     pipewire = {
       enable = true;

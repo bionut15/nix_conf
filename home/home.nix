@@ -260,6 +260,7 @@ in {
         height = 33;
         spacing = 2;
         output = [
+          "HDMI-A-1"
           "eDP-1"
         ];
         modules-left = ["hyprland/workspaces" "hyprland/window"];
