@@ -4,6 +4,7 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    unstable.url = "nixpkgs/nixos-unstable";
     pollymc = {
       url = "github:fn2006/PollyMC";
     };
@@ -13,21 +14,27 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
-    let
+  outputs = inputs @ {
+    nixpkgs,
+    home-manager,
+    unstable,
+    ...
+  }: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacypackages.${system};
+    pkgs-unstable = unstable.legacypackages.${system};
+  in {
+    homeConfigurations."ionut" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./home/home.nix];
+      specialArgs = {inherit pkgs-unstable;};
+
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."ionut" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        	modules = [ ./home/home.nix ];
+      specialArgs = {
+        inherit inputs;
       };
-	nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [ ./nixos/configuration.nix];
-      };
+      modules = [./nixos/configuration.nix];
     };
+  };
 }

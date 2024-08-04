@@ -5,6 +5,7 @@
   config,
   inputs,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   imports = [
@@ -100,156 +101,159 @@
   ];
   # List packages installed in system profile.
 
-  environment.systemPackages = with pkgs; [
-    #bluetooth and sound
-    pipewire
-    wireplumber
-    alsaLib
-    pavucontrol
-    pwvucontrol
-    bluez-tools
-    bluez
+  environment.systemPackages =
+    (with pkgs; [
+      #bluetooth and sound
+      pipewire
+      wireplumber
+      alsaLib
+      pavucontrol
+      pwvucontrol
+      bluez-tools
+      bluez
 
-    #Utils
-    rar
-    unzip
-    zip
-    brillo
-    brightnessctl
-    networkmanager
-    networkmanagerapplet
-    speedtest-cli
+      #Utils
+      rar
+      unzip
+      zip
+      brillo
+      brightnessctl
+      networkmanager
+      networkmanagerapplet
+      speedtest-cli
 
-    lazygit
-    git
-    starship
-    wl-clipboard
-    grim
-    slurp
-    nsxiv
-    zathura
-    lf
-    kitty
-    trash-cli
-    pistol
-    imagemagick
-    ghostscript
-    poppler
-    hplipWithPlugin
-    cups
+      lazygit
+      git
+      starship
+      wl-clipboard
+      grim
+      slurp
+      nsxiv
+      zathura
+      lf
+      kitty
+      trash-cli
+      pistol
+      imagemagick
+      ghostscript
+      poppler
+      hplipWithPlugin
+      cups
 
-    tmux
-    mpv
-    lsd
-    cava
-    figlet
-    lshw
-    pandoc
-    texliveTeTeX
+      tmux
+      mpv
+      lsd
+      cava
+      figlet
+      lshw
+      pandoc
+      texliveTeTeX
 
-    obsidian
-    obs-studio
-    ffmpeg
+      obsidian
+      obs-studio
+      ffmpeg
 
-    #Mine
-    fish
-    entr
-    udiskie
-    udisks
-    ncdu
-    btop
+      #Mine
+      fish
+      entr
+      udiskie
+      udisks
+      ncdu
+      btop
 
-    asusctl
+      asusctl
 
-    discord
-    webcord
-    signal-desktop
-    jre
-    neovim
-    inkscape
-    libreoffice
-    librecad
-    gnome.gnome-calculator
-    freecad
+      discord
+      webcord
+      signal-desktop
+      jre
+      neovim
+      inkscape
+      libreoffice
+      librecad
+      gnome.gnome-calculator
+      freecad
 
-    firefox
+      firefox
 
-    fastfetch
-    blender
-    lutris
-    inputs.pollymc.packages.${pkgs.system}.pollymc
+      fastfetch
+      blender
+      lutris
+      inputs.pollymc.packages.${pkgs.system}.pollymc
 
-    heroic
-    wine
-    wine-wayland
-    wineWowPackages.stable
-    wineWowPackages.waylandFull
+      heroic
+      wine
+      wine-wayland
+      wineWowPackages.stable
+      wineWowPackages.waylandFull
 
-    bottles
-    fragments
-    alacritty
+      bottles
+      fragments
+      alacritty
 
-    wget
-    gnome.gnome-clocks
-    gnome.nautilus
-    xfce.thunar
-    xfce.tumbler
-    gvfs
+      wget
+      gnome.gnome-clocks
+      gnome.nautilus
+      xfce.thunar
+      xfce.tumbler
+      gvfs
 
-    #Dev
-    rustc
-    rust-analyzer
-    rustfmt
-    clang
-    llvm
-    cargo
-    gcc
-    cmake
-    gnumake
-    fzf
-    #style formatter
-    lua54Packages.luacheck
-    lua-language-server
-    stylua
-    nodePackages_latest.prettier
+      #Dev
+      rust-analyzer
+      rustfmt
+      clang
+      llvm
+      cargo
+      gcc
+      cmake
+      gnumake
+      fzf
+      #style formatter
+      lua54Packages.luacheck
+      lua-language-server
+      stylua
+      nodePackages_latest.prettier
 
-    #GTK
-    gtk2
-    gtk3
-    gtk4
-    lxappearance-gtk2
-    gnome.gnome-themes-extra
-    gtk-engine-murrine
-    gruvbox-gtk-theme
-    gruvbox-dark-gtk
+      #GTK
+      gtk2
+      gtk3
+      gtk4
+      lxappearance-gtk2
+      gnome.gnome-themes-extra
+      gtk-engine-murrine
+      gruvbox-gtk-theme
+      gruvbox-dark-gtk
 
-    #Hyprland rice
-    qt5.qtwayland
-    qt6.qtwayland
-    pkgs.dunst
-    waybar
-    wofi
-    pam
-    mpd
-    hyprland
-    hypridle
-    hyprlock
-    hyprpaper
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
-    xdg-utils
-    libnotify
-    bibata-cursors
+      #Hyprland rice
+      qt5.qtwayland
+      qt6.qtwayland
+      pkgs.dunst
+      waybar
+      wofi
+      pam
+      mpd
+      hyprland
+      hypridle
+      hyprlock
+      hyprpaper
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+      xdg-utils
+      libnotify
+      bibata-cursors
 
-    #Secure boot
-    sbctl
-    niv
+      #Secure boot
+      sbctl
+      niv
 
-    #Nix Stuff
-    home-manager
-    nh
-    alejandra
-  ];
+      #Nix Stuff
+      home-manager
+      nh
+      alejandra
+    ])
+    ++ (with pkgs-unstable; [
+      rustc
+    ]);
 
   #fonts
   fonts.packages = with pkgs; [
