@@ -22,17 +22,18 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacypackages.${system};
-    pkgs-unstable = unstable.legacypackages.${system};
+    pkgs-unstable = unstable.legacyPackages.${system};
   in {
     homeConfigurations."ionut" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [./home/home.nix];
-      specialArgs = {inherit pkgs-unstable;};
-
+      #specialArgs = {inherit pkgs-unstable;};
+    };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
         inherit inputs;
+        inherit pkgs-unstable;
       };
       modules = [./nixos/configuration.nix];
     };
