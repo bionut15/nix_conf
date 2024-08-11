@@ -21,7 +21,7 @@
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacypackages.${system};
+    pkgs = nixpkgs.legacyPackages.${system};
     pkgs-unstable = unstable.legacyPackages.${system};
   in {
     homeConfigurations."ionut" = home-manager.lib.homeManagerConfiguration {

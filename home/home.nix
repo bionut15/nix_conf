@@ -256,7 +256,7 @@ in {
     settings = {
       mainBar = {
         layer = "top";
-        position = "bottom";
+        position = "top";
         height = 33;
         spacing = 2;
         output = [

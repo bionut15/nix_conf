@@ -199,11 +199,8 @@
       gvfs
 
       #Dev
-      rust-analyzer
-      rustfmt
       clang
       llvm
-      cargo
       gcc
       cmake
       gnumake
@@ -253,6 +250,9 @@
     ])
     ++ (with pkgs-unstable; [
       rustc
+      rust-analyzer
+      rustfmt
+      cargo
     ]);
 
   #fonts
