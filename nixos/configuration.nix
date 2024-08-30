@@ -26,7 +26,7 @@
   #      '';
   #};
 
-  boot.kernelPackages = pkgs.linuxPackages_6_9;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub.enable = true;
@@ -92,6 +92,8 @@
     packages = with pkgs; [];
   };
 
+  users.defaultUserShell = pkgs.fish;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nix.settings.warn-dirty = false;
@@ -117,6 +119,7 @@
       unzip
       zip
       brillo
+
       brightnessctl
       networkmanager
       networkmanagerapplet
@@ -144,7 +147,6 @@
       mpv
       lsd
       cava
-      figlet
       lshw
       pandoc
       texliveTeTeX
@@ -153,13 +155,14 @@
       obs-studio
       ffmpeg
 
-      #Mine
+      #utilities
       fish
       entr
       udiskie
       udisks
       ncdu
       btop
+      nvitop
 
       asusctl
 
@@ -204,7 +207,9 @@
       gcc
       cmake
       gnumake
-      fzf
+      fd
+      bat
+
       #style formatter
       lua54Packages.luacheck
       lua-language-server
@@ -222,14 +227,17 @@
       gruvbox-dark-gtk
 
       #Hyprland rice
+
       qt5.qtwayland
       qt6.qtwayland
       pkgs.dunst
       waybar
+      nwg-displays
       wofi
       pam
       mpd
       hyprland
+      wlogout
       hypridle
       hyprlock
       hyprpaper
@@ -253,6 +261,8 @@
       rust-analyzer
       rustfmt
       cargo
+
+      figma-linux
     ]);
 
   #fonts
@@ -307,6 +317,7 @@
   };
 
   #programs
+  programs.fish.enable = true;
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -365,6 +376,14 @@
         };
         amdgpuBusId = "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
+      };
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "555.58.02";
+        sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+        sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
+        openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
+        settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+        persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
       };
     };
   };
