@@ -330,7 +330,10 @@
   };
   #SSH config
   programs.ssh.startAgent = true;
-  programs.ssh.knownHosts.ionut.publicKey = "~/home/ionut/.ssh/keygen";
+  users.users."ionut".openssh.authorizedKeys.keyFiles = [
+    /home/ionut/.ssh/keygen
+  ];
+
   #Hyprland setup
   programs.hyprland = {
     enable = true;

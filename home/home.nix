@@ -18,6 +18,8 @@ in {
   #Theming
   #GTK
   gtk = {
+    theme.package = pkgs.gruvbox-dark-gtk;
+    theme.name = "Gruvbox-Material-Dark";
     enable = true;
     cursorTheme.package = pkgs.bibata-cursors;
     cursorTheme.name = "Bibata-Modern-Ice";
@@ -31,7 +33,7 @@ in {
       };
     };
     gtk4 = {
-      extraCss = gruvbox-dark;
+      #extraCss = gruvbox-dark;
       extraConfig = {
         gtk-application-prefer-dark-theme = 1;
       };
@@ -259,33 +261,35 @@ in {
   programs.wlogout = {
     enable = true;
     style = ''
-                 * {
-                 	box-shadow: none;
-                 }
+                   * {
+                   	box-shadow: none;
+                   }
 
-                 window {
-                 	background-color: rgba(12, 12, 12, 0.9);
-        			backdrop-filter: blur(10px);
-      opacity: 0.8;
-                 }
+                   window {
+                   	background-color: rgba(12, 12, 12, 0.9);
 
-                 button {
-                     border-radius: 55px;
-                     border-color: black;
-                 	text-decoration-color: #FFFFFF;
-                     color: #FFFFFF;
-                 	background-color: #1E1E1E;
-                 	border-style: solid;
-                 	border-width: 1px;
-                 	background-repeat: no-repeat;
-                 	background-position: center;
-                 	background-size: 25%;
-                 }
+          			backdrop-filter: blur(10px);
+        opacity: 0.8;
+                   }
 
-                 button:focus, button:active, button:hover {
-                 	background-color: #3700B3;
-                 	outline-style: none;
-                 }
+                   button {
+                       border-radius: 55px;
+                       border-color: black;
+                   	text-decoration-color: #FFFFFF;
+                       color: #FFFFFF;
+                   	background-color: #1E1E1E;
+                   	border-style: solid;
+      margin: 182px 5px;
+                   	border-width: 1px;
+                   	background-repeat: no-repeat;
+                   	background-position: center;
+                   	background-size: 25%;
+                   }
+
+                   button:focus, button:active, button:hover {
+                   	background-color: #3700B3;
+                   	outline-style: none;
+                   }
 
     '';
   };
@@ -789,6 +793,10 @@ in {
       dynamic_background_opacity = true;
       background_opacity = "0.75";
       shell = "fish";
+      window_margin_width = "0";
+      window_border_width = "0";
+      window_padding_width = "0";
+      resize_in_steps = "yes";
     };
     shellIntegration.enableFishIntegration = true;
     font.name = "JetBrainsMono Nerd Font";
