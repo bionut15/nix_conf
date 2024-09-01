@@ -238,26 +238,25 @@ in {
     mouse = true;
     terminal = "tmux-256color";
     shell = "${pkgs.fish}/bin/fish";
-    extraConfig = "
-		set -g prefix  C-s
-		set -ga terminal-overrides xterm-256color:Tc;
-		bind-key h select-pane -L
-		bind-key j select-pane -D
-		bind-key k select-pane -U
-		bind-key l select-pane -L
-		";
+    extraConfig = ''
+               set -g prefix  C-s
+
+      bind c new-window -c "#{pane_current_path}"
+               bind % split-window -v -c "#{pane_current_path}"
+               bind '"' split-window -h -c "#{pane_current_path}"
+
+               bind-key h select-pane -L
+               bind-key j select-pane -D
+               bind-key k select-pane -U
+               bind-key l select-pane -L
+    '';
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.tmux-colors-solarized
       tmuxPlugins.better-mouse-mode
     ];
   };
-  #services.hyprlock = {
-  #	enable = true;
-  #	settings = {
-  #
-  #	};
-  #};
+
   programs.wlogout = {
     enable = true;
     style = ''
