@@ -26,7 +26,7 @@
   #      '';
   #};
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub.enable = true;
@@ -242,7 +242,6 @@
       hyprlock
       hyprpaper
       xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
       xdg-utils
       libnotify
       bibata-cursors
@@ -261,8 +260,6 @@
       rust-analyzer
       rustfmt
       cargo
-
-      figma-linux
     ]);
 
   #fonts
@@ -329,7 +326,9 @@
     defaultEditor = true;
   };
   #SSH config
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+  };
   users.users."ionut".openssh.authorizedKeys.keyFiles = [
     /home/ionut/.ssh/keygen
   ];
