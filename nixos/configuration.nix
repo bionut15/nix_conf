@@ -170,6 +170,11 @@
       webcord
       signal-desktop
       jre
+      # Javascriptar
+      pnpm
+      nodejs
+      nodePackages.live-server
+
       neovim
       inkscape
       libreoffice
@@ -241,6 +246,8 @@
       hypridle
       hyprlock
       hyprpaper
+      swaybg
+      waypaper
       xdg-desktop-portal-hyprland
       xdg-utils
       libnotify
@@ -260,6 +267,8 @@
       rust-analyzer
       rustfmt
       cargo
+
+      waypaper
     ]);
 
   #fonts
