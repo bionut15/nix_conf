@@ -7,7 +7,15 @@
   pkgs,
   pkgs-unstable,
   ...
-}: {
+}: let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -26,7 +34,8 @@
   #      '';
   #};
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub.enable = true;
@@ -36,6 +45,10 @@
 
   boot.supportedFilesystems = ["ntfs"];
   networking.hostName = "nixos"; # Define your hostname.
+  networking.firewall = {
+    allowedTCPPorts = [443 8080];
+    enable = false;
+  };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -68,6 +81,7 @@
   #   layout = "us";
   #   xkbVariant = "";
   # };
+
   services.greetd = {
     enable = true;
     settings = {
@@ -207,6 +221,7 @@
       gvfs
 
       #Dev
+      marp-cli
       clang
       llvm
       gcc
@@ -278,6 +293,7 @@
         "JetBrainsMono"
         "CascadiaMono"
         "Noto"
+        "GeistMono"
       ];
     })
   ];
@@ -292,6 +308,11 @@
     logind.lidSwitchExternalPower = "ignore";
     logind.lidSwitchDocked = "ignore";
     flatpak.enable = true;
+
+    #mongodb = {
+    #  enable = true;
+    #};
+
     pipewire = {
       enable = true;
       audio.enable = true;
@@ -376,26 +397,30 @@
     };
     nvidia = {
       modesetting.enable = true;
-      powerManagement.enable = false;
+      powerManagement.enable = true;
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
+
       prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
+        sync.enable = true;
+        #change offload when need to be separte
+        #offload = {
+        #  enable = true;
+        #  enableOffloadCmd = true;
+        #};
         amdgpuBusId = "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "555.58.02";
-        sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-        sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
-        openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
-        settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-        persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
-      };
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #  version = "555.58.02";
+      #  sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+      #  sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
+      #  openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
+      #  settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+      #  persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
+      #};
     };
   };
   environment.etc = {

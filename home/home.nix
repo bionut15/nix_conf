@@ -298,7 +298,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 35;
+        height = 34;
         spacing = 2;
         output = [
           "HDMI-A-1"
@@ -361,6 +361,7 @@ in {
           format = " {percent}% {icon}";
           format-icons = [" " " " " " " " " " " " " " " " " "];
           tooltip = true;
+          #on-click = "";
         };
         "memory" = {
           format = " {}%   ";
