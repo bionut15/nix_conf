@@ -23,6 +23,15 @@ in {
 
   # Bootloader.
   #Systemd-boot
+  #systemd = {
+  #  sleep.extraConfig = ''
+  #    AllowSuspend=no
+  #    AllowHibernation=no
+  #    AllowHybridSleep=no
+  #    AllowSuspendThenHibernate=no
+  #  '';
+  #};
+
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.systemd-boot.consoleMode = "keep";
   #boot.loader.systemd-boot.configurationLimit = 10;
@@ -77,10 +86,6 @@ in {
   };
 
   services.xserver.videoDrivers = ["nvidia"];
-  # services.xserver = {
-  #   layout = "us";
-  #   xkbVariant = "";
-  # };
 
   services.greetd = {
     enable = true;
@@ -305,13 +310,26 @@ in {
   security.rtkit.enable = true;
 
   services = {
-    logind.lidSwitchExternalPower = "ignore";
-    logind.lidSwitchDocked = "ignore";
-    flatpak.enable = true;
+    auto-cpufreq = {
+      enable = true;
+      settings = {
+        battery = {
+          governor = "powersave";
+          turbo = "never";
+        };
+        charger = {
+          governor = "performance";
+          turbo = "never";
+        };
+      };
+    };
 
-    #mongodb = {
-    #  enable = true;
-    #};
+    logind = {
+      lidSwitch = "suspend";
+      lidSwitchDocked = "suspend";
+      lidSwitchExternalPower = "suspend";
+    };
+    flatpak.enable = true;
 
     pipewire = {
       enable = true;
@@ -328,15 +346,20 @@ in {
         };
       };
     };
+
     blueman.enable = true;
+
     asusd = {
       enable = true;
       profileConfig = "Quiet";
+      enableUserService = true;
       userLedModesConfig = "strobe";
     };
+
     udisks2.enable = true;
     printing.enable = true;
     printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];
+
     mpd = {
       enable = true;
       startWhenNeeded = true;

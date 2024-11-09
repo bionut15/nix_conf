@@ -7,106 +7,31 @@
   unstable = import <nixos-unstable> {};
 in {
   home.username = "ionut";
+
   home.homeDirectory = "/home/ionut";
+
   home.pointerCursor = {
     gtk.enable = true;
-    name = "Bibata-modern-ice";
-    package = pkgs.bibata-cursors;
-    size = 22;
+    #name = "Bibata-modern-ice";
+    #package = pkgs.bibata-cursors;
+    #size = 22;
     x11.defaultCursor = "Bibata-modern-ice";
   };
-  #Theming
-  #GTK
-  gtk = {
-    theme.package = pkgs.gruvbox-dark-gtk;
-    theme.name = "Gruvbox-Material-Dark";
-    enable = true;
-    cursorTheme.package = pkgs.bibata-cursors;
-    cursorTheme.name = "Bibata-Modern-Ice";
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    gtk3 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-    };
-    gtk4 = {
-      #extraCss = gruvbox-dark;
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-    };
-  };
 
-  #QT config
-  qt.enable = true;
-  qt.platformTheme.name = "gtk";
-  qt.style.name = "adwaita-dark";
-  qt.style.package = pkgs.adwaita-qt;
+  home.stateVersion = "23.11";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/ionut/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
     VISUAL = "nvim";
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
   };
+
   #XDG settings
   xdg.mime.enable = true;
   xdg.mimeApps = {
@@ -292,13 +217,14 @@ in {
 
     '';
   };
+
   programs.waybar = {
     enable = true;
     settings = {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 34;
+        height = 32;
         spacing = 2;
         output = [
           "HDMI-A-1"
@@ -790,14 +716,22 @@ in {
     enable = true;
     settings = {
       background_blur = "7";
+
       dynamic_background_opacity = true;
       background_opacity = "0.75";
       shell = "fish";
+
+      placement_strategy = "center";
       window_margin_width = "0";
       window_border_width = "0";
       window_padding_width = "0";
+
+      single_window_padding_width = "0";
+      single_window_margin = "0";
+      draw_minimal_borders = "yes";
       resize_in_steps = "yes";
     };
+
     shellIntegration.enableFishIntegration = true;
     font.name = "JetBrainsMono Nerd Font";
     font.size = 12;
@@ -883,7 +817,7 @@ in {
         progress_bar = true;
         transparency = 1;
         text_icon_padding = 0;
-        separator_color = "frame";
+        #separator_color = "frame";
         sort = "yes";
         idle_threshold = 120;
         line_height = 0;
@@ -897,7 +831,7 @@ in {
         always_run_script = true;
         corner_radius = 6;
         follow = "mouse";
-        font = "JetBrainsMono";
+        #font = "JetBrainsMono";
         format = "<span foreground='#f8f8ff'><b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
         frame_color = "#8ec07c";
         frame_width = 3;
@@ -937,6 +871,8 @@ in {
   };
 
   imports = [
+    ./theme/stylix.nix
+    ./theme/hypr.nix
   ];
 
   programs.home-manager.enable = true;
