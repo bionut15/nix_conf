@@ -304,7 +304,8 @@ in {
   ];
   #Wayland
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+
   # Services
 
   security.rtkit.enable = true;
@@ -404,6 +405,13 @@ in {
     VISUAL = "nvim";
     TERM = "kitty";
     FLAKE = "/home/ionut/.config/home-manager";
+    Bibata-Modern-Ice = "~/.icons/Bibata-modern-ice";
+    QT_QPA_PLATFORM = "wayland";
+    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+    HYPRCURSOR_SIZE = "22";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland ";
+    XDG_SESSION_DESKTOP = "Hyprland ";
   };
   hardware = {
     opengl.enable = true;

@@ -33,7 +33,7 @@
     targets.kitty.enable = false;
     targets.alacritty.enable = false;
     targets.dunst.enable = false;
-    targets.tmux.enable = false;
+    #targets.tmux.enable = false;
     targets.waybar.enable = false;
 
     cursor = {
