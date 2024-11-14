@@ -36,10 +36,10 @@
     #targets.tmux.enable = false;
     targets.waybar.enable = false;
 
-    cursor = {
-      name = "Bibata-modern-ice";
-      package = pkgs.bibata-cursors;
-      size = 22;
-    };
+    #cursor = {
+    #  name = "Bibata-modern-ice";
+    #  package = pkgs.bibata-cursors;
+    #  size = 22;
+    #};
   };
 }

@@ -15,7 +15,7 @@ in {
     #name = "Bibata-modern-ice";
     #package = pkgs.bibata-cursors;
     #size = 22;
-    x11.defaultCursor = "Bibata-modern-ice";
+    #x11.defaultCursor = "Bibata-modern-ice";
   };
 
   home.stateVersion = "23.11";
@@ -30,13 +30,6 @@ in {
     VISUAL = "nvim";
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1";
-    # Bibata-Modern-Ice = "~/.icons/Bibata-modern-ice";
-    # QT_QPA_PLATFORM = "wayland";
-    # HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    # HYPRCURSOR_SIZE = "22";
-    # XDG_CURRENT_DESKTOP = "Hyprland";
-    # XDG_SESSION_TYPE = "wayland ";
-    # XDG_SESSION_DESKTOP = "Hyprland ";
   };
 
   #XDG settings

@@ -204,7 +204,9 @@ in {
       firefox
 
       fastfetch
+
       blender
+
       lutris
       inputs.pollymc.packages.${pkgs.system}.pollymc
 
@@ -245,6 +247,7 @@ in {
       gtk2
       gtk3
       gtk4
+      glib
       lxappearance-gtk2
       gnome.gnome-themes-extra
       gtk-engine-murrine
@@ -403,15 +406,15 @@ in {
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
     VISUAL = "nvim";
-    TERM = "kitty";
-    FLAKE = "/home/ionut/.config/home-manager";
-    Bibata-Modern-Ice = "~/.icons/Bibata-modern-ice";
-    QT_QPA_PLATFORM = "wayland";
-    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    HYPRCURSOR_SIZE = "22";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland ";
-    XDG_SESSION_DESKTOP = "Hyprland ";
+    #TERM = "kitty";
+    #FLAKE = "/home/ionut/.config/home-manager";
+    #Bibata-Modern-Ice = "~/.icons/Bibata-modern-ice";
+    #QT_QPA_PLATFORM = "wayland";
+    #HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+    #HYPRCURSOR_SIZE = "22";
+    #XDG_CURRENT_DESKTOP = "Hyprland";
+    #XDG_SESSION_TYPE = "wayland ";
+    #XDG_SESSION_DESKTOP = "Hyprland ";
   };
   hardware = {
     opengl.enable = true;
