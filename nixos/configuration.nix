@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   config,
   inputs,
@@ -17,7 +14,6 @@
   '';
 in {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -55,7 +51,7 @@ in {
   boot.supportedFilesystems = ["ntfs"];
   networking.hostName = "nixos"; # Define your hostname.
   networking.firewall = {
-    allowedTCPPorts = [443 8080];
+    allowedTCPPorts = [2222 443 8080];
     enable = false;
   };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -387,8 +383,10 @@ in {
     startAgent = true;
   };
   users.users."ionut".openssh.authorizedKeys.keyFiles = [
-    /home/ionut/.ssh/keygen
+    #./home/ionut/.ssh/keygen
   ];
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
 
   #Hyprland setup
   programs.hyprland = {
@@ -406,15 +404,6 @@ in {
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
     VISUAL = "nvim";
-    #TERM = "kitty";
-    #FLAKE = "/home/ionut/.config/home-manager";
-    #Bibata-Modern-Ice = "~/.icons/Bibata-modern-ice";
-    #QT_QPA_PLATFORM = "wayland";
-    #HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    #HYPRCURSOR_SIZE = "22";
-    #XDG_CURRENT_DESKTOP = "Hyprland";
-    #XDG_SESSION_TYPE = "wayland ";
-    #XDG_SESSION_DESKTOP = "Hyprland ";
   };
   hardware = {
     opengl.enable = true;
@@ -468,9 +457,6 @@ in {
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

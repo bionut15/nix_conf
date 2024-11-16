@@ -7,7 +7,6 @@
     enable = true;
 
     xwayland = {
-      #force_zero_scaling = true;
       enable = true;
     };
 
@@ -17,9 +16,9 @@
       "$mainMod" = "SUPER";
 
       exec-once = [
+        "swaybg -i /home/ionut/Pictures/Wallpaper/wallhaven-howl.jpg &"
         "hyprpaper"
         "waybar &"
-        "swaybg -i /home/ionut/Pictures/Wallpaper/wallhaven-howl.jpg &"
         "blueman-applet"
         "nm-applet --indicator &"
         "hyprctl setcursor Bibata-Modern-Ice 22"
@@ -27,6 +26,7 @@
         "udiskie &"
         "asusctl profile -P Quiet &"
         "[workspace 1 silent] firefox"
+        "[workspace 2 silent]kitty tmux #alacritty"
       ];
 
       monitor = [
@@ -55,13 +55,11 @@
         gaps_in = 0;
         gaps_out = 0;
 
-        border_size = 3;
+        border_size = 2;
+
         border_part_of_window = true;
 
         layout = "master";
-
-        #"col.active_border" = "rgb(689d6a)";
-        #"col.inactive_border" = "rgb(1d2021)";
 
         allow_tearing = false;
       };
@@ -78,26 +76,19 @@
           size = 2;
           passes = 3;
         };
-
-        #"col.shadow" = "rgba(1a1a1aee)";
       };
 
       master = {
         new_status = true;
         allow_small_split = true;
-        mfact = 0.5;
+        mfact = 0.6;
+        orientation = "left";
       };
 
       gestures = {workspace_swipe = true;};
 
       misc = {
-        #vfr = true;
-        #disable_hyprland_logo = true;
-        #disable_splash_rendering = true;
-        #disable_autoreload = true;
-        #focus_on_activate = true;
         force_default_wallpaper = 0;
-        #new_window_takes_over_fullscreen = 2;
       };
 
       device = {
@@ -125,7 +116,6 @@
         kb_options = "caps:escape";
         follow_mouse = 1;
         sensitivity = 0;
-        #numlock_by_default = true;
 
         touchpad = {
           natural_scroll = false;
@@ -181,7 +171,7 @@
         ",XF86MonBrightnessDown, exec, brightnessctl set 10%-"
       ];
       bindm = [
-        #" $mainMod, mouse:272, movewindow"
+        " $mainMod, mouse:272, movewindow"
         " $mainMod, mouse:273, resizewindow"
       ];
       bindl = [

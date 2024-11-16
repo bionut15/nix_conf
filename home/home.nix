@@ -12,10 +12,6 @@ in {
 
   home.pointerCursor = {
     gtk.enable = true;
-    #name = "Bibata-modern-ice";
-    #package = pkgs.bibata-cursors;
-    #size = 22;
-    #x11.defaultCursor = "Bibata-modern-ice";
   };
 
   home.stateVersion = "23.11";
@@ -163,21 +159,35 @@ in {
     mouse = true;
     terminal = "tmux-256color";
     shell = "${pkgs.fish}/bin/fish";
+
     extraConfig = ''
-               set -g prefix  C-s
+             set -g prefix  C-s
+             unbind r
+             bind r source-file ~/.config/tmux/tmux.conf
 
-      bind c new-window -c "#{pane_current_path}"
-               bind % split-window -v -c "#{pane_current_path}"
-               bind '"' split-window -h -c "#{pane_current_path}"
+             bind c new-window -c "#{pane_current_path}"
+             bind % split-window -v -c "#{pane_current_path}"
+             bind '"' split-window -h -c "#{pane_current_path}"
 
-               bind-key h select-pane -L
-               bind-key j select-pane -D
-               bind-key k select-pane -U
-               bind-key l select-pane -L
+             bind-key h select-pane -L
+             bind-key j select-pane -D
+             bind-key k select-pane -U
+             bind-key l select-pane -L
+
+             # window status
+       set-option -g status-position bottom
+
+      set-option -g status-style "bg=colour236,fg=colour223"
+
+       set-option -g status-left "#[bg=colour241,fg=colour248] #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
+       set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246] %d.%m.%Y |  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0] #h "
+
+       set-window-option -g window-status-current-format "#[bg=colour48,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour48,fg=colour0] #[bg=colour48 ,fg=colour0,bold] #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour48,nobold,noitalics,nounderscore]▓▒░"
+
+       set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
     '';
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
-      tmuxPlugins.tmux-colors-solarized
       tmuxPlugins.better-mouse-mode
     ];
   };
@@ -722,6 +732,7 @@ in {
       shell = "fish";
 
       placement_strategy = "center";
+
       window_margin_width = "0";
       window_border_width = "0";
       window_padding_width = "0";
@@ -734,9 +745,10 @@ in {
 
     shellIntegration.enableFishIntegration = true;
     font.name = "JetBrainsMono Nerd Font";
-    font.size = 12;
-    theme = "Gruvbox Dark";
+    font.size = 11;
+    theme = "Everforest Dark Hard";
   };
+
   programs.alacritty = {
     enable = true;
     # custom settings
@@ -802,6 +814,7 @@ in {
     notify = true;
     tray = "auto";
   };
+
   services.dunst = {
     enable = true;
     settings = {
@@ -831,8 +844,7 @@ in {
         always_run_script = true;
         corner_radius = 6;
         follow = "mouse";
-        #font = "JetBrainsMono";
-        format = "<span foreground='#f8f8ff'><b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
+        format = "<span foreground='#f8f8ff'><b>%s</b>\\n%b";
         frame_color = "#8ec07c";
         frame_width = 3;
         offset = "15x15";
@@ -855,18 +867,18 @@ in {
 
       fullscreen_delay_everything = {fullscreen = "delay";};
 
-      urgency_critical = {
-        background = "#3c3836";
-        foreground = "#f8f8ff";
-      };
-      urgency_low = {
-        background = "#3c3836";
-        foreground = "#f8f8ff";
-      };
-      urgency_normal = {
-        background = "#3c3836";
-        foreground = "#f8f8ff";
-      };
+      #urgency_critical = {
+      #  background = "#3c3836";
+      #  foreground = "#f8f8ff";
+      #};
+      #urgency_low = {
+      #  background = "#3c3836";
+      #  foreground = "#f8f8ff";
+      #};
+      #urgency_normal = {
+      #  background = "#3c3836";
+      #  foreground = "#f8f8ff";
+      #};
     };
   };
 

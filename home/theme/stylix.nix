@@ -10,7 +10,7 @@
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = "Bibata-modern-ice";
+      name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
       size = 22;
     };
@@ -29,17 +29,39 @@
     image = /home/ionut/Pictures/Wallpaper/ghibliwall.png;
 
     targets.gtk.enable = true;
+    targets.dunst.enable = true;
 
     targets.kitty.enable = false;
     targets.alacritty.enable = false;
-    targets.dunst.enable = false;
-    #targets.tmux.enable = false;
+    targets.tmux.enable = true;
     targets.waybar.enable = false;
 
-    #cursor = {
-    #  name = "Bibata-modern-ice";
-    #  package = pkgs.bibata-cursors;
-    #  size = 22;
-    #};
+    cursor = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+      size = 22;
+    };
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "JetBrainsMono Nerd Font Mono";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+
+      sizes = {
+        applications = 10;
+        terminal = 11;
+        desktop = 10;
+        popups = 10;
+      };
+    };
   };
 }
