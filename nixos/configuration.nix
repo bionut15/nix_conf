@@ -357,6 +357,7 @@ in {
     };
 
     udisks2.enable = true;
+
     printing.enable = true;
     printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];
 

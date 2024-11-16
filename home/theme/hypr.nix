@@ -23,7 +23,7 @@
         "nm-applet --indicator &"
         "hyprctl setcursor Bibata-Modern-Ice 22"
         "hypridle"
-        "udiskie &"
+        #        "udiskie &"
         "asusctl profile -P Quiet &"
         "[workspace 1 silent] firefox"
         "[workspace 2 silent]kitty tmux #alacritty"

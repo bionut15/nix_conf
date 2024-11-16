@@ -161,30 +161,32 @@ in {
     shell = "${pkgs.fish}/bin/fish";
 
     extraConfig = ''
-             set -g prefix  C-s
-             unbind r
-             bind r source-file ~/.config/tmux/tmux.conf
+                   set -g prefix  C-s
+                   unbind r
+                   bind r source-file ~/.config/tmux/tmux.conf
 
-             bind c new-window -c "#{pane_current_path}"
-             bind % split-window -v -c "#{pane_current_path}"
-             bind '"' split-window -h -c "#{pane_current_path}"
+                   bind c new-window -c "#{pane_current_path}"
+                   bind % split-window -v -c "#{pane_current_path}"
+                   bind '"' split-window -h -c "#{pane_current_path}"
 
-             bind-key h select-pane -L
-             bind-key j select-pane -D
-             bind-key k select-pane -U
-             bind-key l select-pane -L
+                   bind-key h select-pane -L
+                   bind-key j select-pane -D
+                   bind-key k select-pane -U
+                   bind-key l select-pane -L
 
-             # window status
-       set-option -g status-position bottom
+                   # window status
+             set-option -g status-position bottom
 
-      set-option -g status-style "bg=colour236,fg=colour223"
+      	set-option -g status-left-length 50
+      set-option -g status-right-length 80
+            set-option -g status-style "bg=colour236,fg=colour223"
 
-       set-option -g status-left "#[bg=colour241,fg=colour248] #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
-       set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246] %d.%m.%Y |  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0] #h "
+             set-option -g status-left "#[bg=colour241,fg=colour248]   #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
+             set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246]   %d.%m.%Y | 󰥔  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0]   #h "
 
-       set-window-option -g window-status-current-format "#[bg=colour48,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour48,fg=colour0] #[bg=colour48 ,fg=colour0,bold] #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour48,nobold,noitalics,nounderscore]▓▒░"
+             set-window-option -g window-status-current-format "#[bg=colour48,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour48,fg=colour0] #[bg=colour48 ,fg=colour0,bold]   #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour48,nobold,noitalics,nounderscore]▓▒░"
 
-       set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
+             set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
     '';
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
