@@ -819,6 +819,12 @@ in {
 
   services.dunst = {
     enable = true;
+
+    iconTheme = {
+      name = "adwaita-icon-theme";
+      package = pkgs.gnome.adwaita-icon-theme;
+      size = "32x32";
+    };
     settings = {
       global = {
         rounded = "yes";
@@ -832,7 +838,6 @@ in {
         progress_bar = true;
         transparency = 1;
         text_icon_padding = 0;
-        #separator_color = "frame";
         sort = "yes";
         idle_threshold = 120;
         line_height = 0;
@@ -852,6 +857,7 @@ in {
         offset = "15x15";
         horizontal_padding = 10;
         icon_position = "left";
+
         indicate_hidden = "yes";
         min_icon_size = 0;
         max_icon_size = 64;
@@ -868,19 +874,6 @@ in {
       };
 
       fullscreen_delay_everything = {fullscreen = "delay";};
-
-      #urgency_critical = {
-      #  background = "#3c3836";
-      #  foreground = "#f8f8ff";
-      #};
-      #urgency_low = {
-      #  background = "#3c3836";
-      #  foreground = "#f8f8ff";
-      #};
-      #urgency_normal = {
-      #  background = "#3c3836";
-      #  foreground = "#f8f8ff";
-      #};
     };
   };
 

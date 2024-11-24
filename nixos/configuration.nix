@@ -92,6 +92,26 @@ in {
       };
     };
   };
+  console = {
+    colors = [
+      "343F44"
+      "E67E80"
+      "A7C080"
+      "DBBC7F"
+      "7FBBB3"
+      "D699B6"
+      "83C092"
+      "D3C6AA"
+      "5C6A72"
+      "F85552"
+      "8DA101"
+      "DFA000"
+      "3A94C5"
+      "DF69BA"
+      "35A77C"
+      "DFDDC8"
+    ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ionut = {
@@ -195,13 +215,10 @@ in {
       libreoffice
       librecad
       gnome.gnome-calculator
-      freecad
 
       firefox
 
       fastfetch
-
-      blender
 
       lutris
       inputs.pollymc.packages.${pkgs.system}.pollymc
@@ -215,6 +232,7 @@ in {
       bottles
       fragments
       alacritty
+      freecad
 
       wget
       gnome.gnome-clocks
@@ -232,6 +250,10 @@ in {
       gnumake
       fd
       bat
+      #Blender stuf
+      mesa
+      libGL
+      vulkan-loader
 
       #style formatter
       lua54Packages.luacheck
@@ -244,8 +266,9 @@ in {
       gtk3
       gtk4
       glib
-      lxappearance-gtk2
+      #lxappearance-gtk2
       gnome.gnome-themes-extra
+      gnome.adwaita-icon-theme
       gtk-engine-murrine
       gruvbox-gtk-theme
       gruvbox-dark-gtk
@@ -265,16 +288,14 @@ in {
       hypridle
       hyprlock
       hyprpaper
-      swaybg
-      waypaper
       xdg-desktop-portal-hyprland
       xdg-utils
       libnotify
       bibata-cursors
 
       #Secure boot
-      sbctl
-      niv
+      #sbctl
+      #niv
 
       #Nix Stuff
       home-manager
@@ -384,9 +405,10 @@ in {
     startAgent = true;
   };
   users.users."ionut".openssh.authorizedKeys.keyFiles = [
-    #./home/ionut/.ssh/keygen
+    #./etc/ssh/keygen
   ];
-  # Enable the OpenSSH daemon.
+
+  # Enable  the OpenSSH daemon.
   services.openssh.enable = true;
 
   #Hyprland setup
@@ -436,15 +458,15 @@ in {
         amdgpuBusId = "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #  version = "555.58.02";
-      #  sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-      #  sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
-      #  openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
-      #  settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-      #  persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
-      #};
+      #package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "555.58.02";
+        sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+        sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
+        openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
+        settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+        persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
+      };
     };
   };
   environment.etc = {
