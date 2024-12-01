@@ -3,7 +3,6 @@
   pkgs,
   ...
 }: let
-  gruvbox-dark = import ./theme/gruvbox-plus.css;
   unstable = import <nixos-unstable> {};
 in {
   home.username = "ionut";
@@ -628,7 +627,7 @@ in {
     style = ''
       window {
       margin: 0px;
-      border-radius:0.4em;
+      border-radius:0;
       border: 1px solid #928374;
       background-color: #282828;
       }
@@ -725,7 +724,7 @@ in {
   };
 
   programs.kitty = {
-    enable = true;
+    enable = false;
     settings = {
       background_blur = "7";
 
@@ -746,9 +745,9 @@ in {
     };
 
     shellIntegration.enableFishIntegration = true;
-    font.name = "JetBrainsMono Nerd Font";
-    font.size = 11;
-    theme = "Everforest Dark Hard";
+    #font.name = "JetBrainsMono Nerd Font";
+    #font.size = 11;
+    #themeFile = "Everforest-Dark-Hard";
   };
 
   programs.alacritty = {
@@ -822,7 +821,7 @@ in {
 
     iconTheme = {
       name = "adwaita-icon-theme";
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
       size = "32x32";
     };
     settings = {

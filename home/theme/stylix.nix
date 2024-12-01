@@ -26,12 +26,12 @@
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
-    image = /home/ionut/Pictures/Wallpaper/ghibliwall.png;
+    image = ./ghibliwall.png;
 
     targets.gtk.enable = true;
     targets.dunst.enable = true;
 
-    targets.kitty.enable = false;
+    targets.kitty.enable = true;
     targets.alacritty.enable = false;
     targets.tmux.enable = true;
     targets.waybar.enable = false;

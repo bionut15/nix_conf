@@ -143,7 +143,7 @@ in {
       #bluetooth and sound
       pipewire
       wireplumber
-      alsaLib
+      alsa-lib
       pavucontrol
       pwvucontrol
       bluez-tools
@@ -164,6 +164,7 @@ in {
       git
       starship
       wl-clipboard
+      peek
       grim
       slurp
       nsxiv
@@ -214,7 +215,8 @@ in {
       inkscape
       libreoffice
       librecad
-      gnome.gnome-calculator
+      gnome-calculator
+      gnome-calendar
 
       firefox
 
@@ -232,11 +234,10 @@ in {
       bottles
       fragments
       alacritty
-      freecad
 
       wget
-      gnome.gnome-clocks
-      gnome.nautilus
+      gnome-clocks
+      nautilus
       xfce.thunar
       xfce.tumbler
       gvfs
@@ -267,8 +268,8 @@ in {
       gtk4
       glib
       #lxappearance-gtk2
-      gnome.gnome-themes-extra
-      gnome.adwaita-icon-theme
+      gnome-themes-extra
+      adwaita-icon-theme
       gtk-engine-murrine
       gruvbox-gtk-theme
       gruvbox-dark-gtk
@@ -307,6 +308,7 @@ in {
       rust-analyzer
       rustfmt
       cargo
+      freecad-wayland
 
       waypaper
     ]);
@@ -374,13 +376,13 @@ in {
       enable = true;
       profileConfig = "Quiet";
       enableUserService = true;
-      userLedModesConfig = "strobe";
+      userLedModesConfig = "static";
     };
 
     udisks2.enable = true;
 
-    printing.enable = true;
-    printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];
+    #printing.enable = true;
+    #printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];
 
     mpd = {
       enable = true;
@@ -429,7 +431,7 @@ in {
     VISUAL = "nvim";
   };
   hardware = {
-    opengl.enable = true;
+    graphics.enable = true;
     cpu.amd.updateMicrocode = true;
 
     pulseaudio.enable = false;

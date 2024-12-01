@@ -25,7 +25,7 @@
         "asusctl profile -P Quiet &"
         "[workspace 1 silent] firefox"
         "[workspace 2 silent] kitty tmux #alacritty"
-        "[workspace 4 silent] obsidian"
+        #"[workspace 4 silent] obsidian"
       ];
 
       monitor = [
@@ -66,11 +66,11 @@
       decoration = {
         rounding = 0;
 
-        drop_shadow = "no";
+        #drop_shadow = "no";
 
-        shadow_range = 0;
-        shadow_render_power = 3;
-        shadow_offset = "12 12";
+        #shadow_range = 0;
+        #shadow_render_power = 3;
+        #shadow_offset = "12 12";
 
         blur = {
           enabled = true;
@@ -224,8 +224,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["~/Pictures/Wallpaper/wallhaven-96pklk.png"];
-      wallpaper = [", ~/Pictures/Wallpaper/wallhaven-96pklk.png"];
+      preload = ["~/Pictures/Wallpaper/Arcane_1.png"];
+      wallpaper = [", ~/Pictures/Wallpaper/Arcane_1.png"];
       splash = false;
     };
   };
