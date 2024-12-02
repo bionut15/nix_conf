@@ -39,7 +39,6 @@
         stylix.homeManagerModules.stylix
         ./home/home.nix
       ];
-      #specialArgs = {inherit pkgs-unstable;};
     };
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

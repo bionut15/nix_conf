@@ -2,6 +2,7 @@
   config,
   pkgs,
   stylix,
+  lib,
   ...
 }: {
   gtk = {
@@ -33,7 +34,7 @@
 
     targets.kitty.enable = false;
     targets.hyprland.enable = false;
-    targets.alacritty.enable = false;
+    targets.alacritty.enable = true;
     targets.tmux.enable = false;
     targets.waybar.enable = false;
 

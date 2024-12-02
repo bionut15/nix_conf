@@ -28,6 +28,7 @@ in {
   };
 
   #XDG settings
+  xdg.enable = false;
   xdg.mime.enable = true;
   xdg.mimeApps = {
     enable = true;
@@ -748,7 +749,7 @@ in {
 
     font.name = "JetBrainsMono Nerd Font";
     font.size = 11;
-    themeFile = "GruvboxMaterialDarkHard";
+    #themeFile = "GruvboxMaterialDarkHard";
   };
 
   programs.alacritty = {
