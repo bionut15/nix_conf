@@ -31,9 +31,10 @@
     targets.gtk.enable = true;
     targets.dunst.enable = true;
 
-    targets.kitty.enable = true;
+    targets.kitty.enable = false;
+    targets.hyprland.enable = false;
     targets.alacritty.enable = false;
-    targets.tmux.enable = true;
+    targets.tmux.enable = false;
     targets.waybar.enable = false;
 
     cursor = {

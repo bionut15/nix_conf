@@ -192,7 +192,6 @@ in {
       ffmpeg
 
       #utilities
-      fish
       entr
       udiskie
       udisks
@@ -392,6 +391,7 @@ in {
 
   #programs
   programs.fish.enable = true;
+
   programs.nh = {
     enable = true;
     clean.enable = true;

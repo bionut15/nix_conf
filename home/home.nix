@@ -157,14 +157,14 @@ in {
     keyMode = "vi";
     mouse = true;
     terminal = "tmux-256color";
-    shell = "${pkgs.fish}/bin/fish";
+    #shell = "${pkgs.fish}/bin/fish";
 
     extraConfig = ''
                    set -g prefix  C-s
                    unbind r
                    bind r source-file ~/.config/tmux/tmux.conf
 
-                   bind c new-window -c "#{pane_current_path}"
+      		bind c new-window -c "#{pane_current_path}"
                    bind % split-window -v -c "#{pane_current_path}"
                    bind '"' split-window -h -c "#{pane_current_path}"
 
@@ -724,7 +724,7 @@ in {
   };
 
   programs.kitty = {
-    enable = false;
+    enable = true;
     settings = {
       background_blur = "7";
 
@@ -745,9 +745,10 @@ in {
     };
 
     shellIntegration.enableFishIntegration = true;
-    #font.name = "JetBrainsMono Nerd Font";
-    #font.size = 11;
-    #themeFile = "Everforest-Dark-Hard";
+
+    font.name = "JetBrainsMono Nerd Font";
+    font.size = 11;
+    themeFile = "GruvboxMaterialDarkHard";
   };
 
   programs.alacritty = {
@@ -755,7 +756,7 @@ in {
     # custom settings
     settings = {
       #optional fish config
-      shell = {
+      terminal.shell = {
         program = "/run/current-system/sw/bin/fish";
       };
       env.TERM = "xterm-256color";

@@ -24,7 +24,7 @@
         "hypridle"
         "asusctl profile -P Quiet &"
         "[workspace 1 silent] firefox"
-        "[workspace 2 silent] kitty tmux #alacritty"
+        "[workspace 2 silent] alacritty -e tmux "
         #"[workspace 4 silent] obsidian"
       ];
 
@@ -59,18 +59,14 @@
         border_part_of_window = true;
 
         layout = "master";
+        "col.inactive_border" = "rgba(ffffffff)";
+        "col.active_border" = "rgba(f2ffffff)";
 
         allow_tearing = false;
       };
 
       decoration = {
         rounding = 0;
-
-        #drop_shadow = "no";
-
-        #shadow_range = 0;
-        #shadow_render_power = 3;
-        #shadow_offset = "12 12";
 
         blur = {
           enabled = true;
@@ -125,8 +121,8 @@
       bind = [
         "ALT, Tab, cyclenext,"
 
-        "$mainMod, Q, exec, kitty #alacritty"
-        "$mainMod SHIFT, Q, exec, kitty tmux #alacritty"
+        "$mainMod, Q, exec, alacritty"
+        "$mainMod SHIFT, Q, exec, alacritty -e tmux "
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, E, exec, thunar"
