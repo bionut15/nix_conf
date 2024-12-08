@@ -24,7 +24,7 @@
         "hypridle"
         "asusctl profile -P Quiet &"
         "[workspace 1 silent] firefox"
-        "[workspace 2 silent] alacritty -e tmux "
+        "[workspace 2 silent] alacritty  -e tmux "
         #"[workspace 4 silent] obsidian"
       ];
 
@@ -51,22 +51,22 @@
       ];
 
       general = {
-        gaps_in = 0;
-        gaps_out = 0;
+        gaps_in = 5;
+        gaps_out = 7;
 
         border_size = 2;
 
         border_part_of_window = true;
 
         layout = "master";
-        "col.inactive_border" = "rgba(ffffffff)";
-        "col.active_border" = "rgba(f2ffffff)";
+        "col.active_border" = "rgba(6a9b8aff)";
+        "col.inactive_border" = "rgba(334f42ff)";
 
         allow_tearing = false;
       };
 
       decoration = {
-        rounding = 0;
+        rounding = 4;
 
         blur = {
           enabled = true;
@@ -111,6 +111,7 @@
         kb_layout = "us";
 
         kb_options = "caps:escape";
+
         follow_mouse = 1;
         sensitivity = 0;
 
@@ -233,7 +234,7 @@
         text = "Enter your password to unlock";
         color = "rgba(200, 200, 200, 1.0)";
         font_size = 25;
-        font_family = "Noto Sans";
+        font_family = "JetBrainsMono Nerd Font Mono";
         position = "0, 200";
         halign = "center";
         valign = "center";

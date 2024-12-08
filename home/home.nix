@@ -52,7 +52,7 @@ in {
     # Configuration written to ~/.config/starship.toml
     settings = {
       add_newline = false;
-      format = "$shlvl $shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
+      format = "$shlvl $shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$character";
       shlvl = {
         disabled = false;
         symbol = "ﰬ ";
@@ -125,6 +125,7 @@ in {
 	";
     shellAliases = {
       v = "nvim";
+      hm = "home-manager";
       homec = "nvim .config/home-manager/home.nix";
       nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
     };
@@ -132,10 +133,11 @@ in {
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      set fish_greeting
-      set -Ux EDITOR nvim
-      set -Ux VISUAL nvim
-      starship init fish | source'';
+            set fish_greeting
+            set -Ux EDITOR nvim
+            set -Ux VISUAL nvim
+      starship init fish | source
+    '';
     shellAliases = {
       v = "nvim";
       n = "nnn";
@@ -158,35 +160,43 @@ in {
     keyMode = "vi";
     mouse = true;
     terminal = "tmux-256color";
-    #shell = "${pkgs.fish}/bin/fish";
+
+    shell = "${pkgs.fish}/bin/fish";
+
+    escapeTime = 0;
+    historyLimit = 1400;
 
     extraConfig = ''
-                   set -g prefix  C-s
-                   unbind r
-                   bind r source-file ~/.config/tmux/tmux.conf
+      			   set -g default-terminal "$TERM"
+      set -ag terminal-overrides ",$TERM:Tc"
+                           set -g prefix  C-s
+                           unbind r
+                           bind r source-file ~/.config/tmux/tmux.conf
 
-      		bind c new-window -c "#{pane_current_path}"
-                   bind % split-window -v -c "#{pane_current_path}"
-                   bind '"' split-window -h -c "#{pane_current_path}"
 
-                   bind-key h select-pane -L
-                   bind-key j select-pane -D
-                   bind-key k select-pane -U
-                   bind-key l select-pane -L
+              		bind c new-window -c "#{pane_current_path}"
+                           bind % split-window -v -c "#{pane_current_path}"
+                           bind '"' split-window -h -c "#{pane_current_path}"
 
-                   # window status
-             set-option -g status-position bottom
+                           bind-key h select-pane -L
+                           bind-key j select-pane -D
+                           bind-key k select-pane -U
+                           bind-key l select-pane -L
+            set-option -sa terminal-overrides ",xterm*:Tc"
 
-      	set-option -g status-left-length 50
-      set-option -g status-right-length 80
-            set-option -g status-style "bg=colour236,fg=colour223"
+                           # window status
+                     set-option -g status-position bottom
 
-             set-option -g status-left "#[bg=colour241,fg=colour248]   #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
-             set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246]   %d.%m.%Y | 󰥔  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0]   #h "
+              	set-option -g status-left-length 50
+              set-option -g status-right-length 80
+                    set-option -g status-style "bg=colour236,fg=colour223"
 
-             set-window-option -g window-status-current-format "#[bg=colour48,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour48,fg=colour0] #[bg=colour48 ,fg=colour0,bold]   #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour48,nobold,noitalics,nounderscore]▓▒░"
+                     set-option -g status-left "#[bg=colour241,fg=colour248]   #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
+                     set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246]   %d.%m.%Y | 󰥔  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0]   #h "
 
-             set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
+                     set-window-option -g window-status-current-format "#[bg=colour48,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour48,fg=colour0] #[bg=colour48 ,fg=colour0,bold]   #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour48,nobold,noitalics,nounderscore]▓▒░"
+
+                     set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
     '';
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
@@ -236,7 +246,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 32;
+        height = 36;
         spacing = 2;
         output = [
           "HDMI-A-1"
@@ -761,42 +771,58 @@ in {
         program = "/run/current-system/sw/bin/fish";
       };
       env.TERM = "xterm-256color";
-      window.opacity = 0.85;
+      window.opacity = 0.9;
+
       window.padding = {
-        x = 2;
-        y = 2;
+        x = 0;
+        y = 0;
       };
-      colors.primary = {
-        background = "#282828";
-        foreground = "#ebdbb2";
-      };
-      colors.normal = {
-        black = "#282828";
-        red = "#cc241d";
-        green = "#98971a";
-        yellow = "#d79921";
-        blue = "#458588";
-        magenta = "#b16286";
-        cyan = "#689d6a";
-        white = "#a89984";
-      };
-      colors.bright = {
-        black = "#928374";
-        red = "#fb4934";
-        green = "#b8bb26";
-        yellow = "#fabd2f";
-        blue = "#83a598";
-        magenta = "#d3869b";
-        cyan = "#8ec07c";
-        white = "#ebdbb2";
-      };
-      font = {
-        normal = {
-          family = "JetBrainsMono Nerd Font";
-          style = "Regular";
-        };
-        size = 12;
-      };
+
+      #colors = {
+      #  primary = {
+      #    background = "#131617";
+      #    foreground = "#e5e9ea";
+      #  };
+      #  normal = {
+      #    black = "#3f4343";
+      #    red = "#e73e55";
+      #    green = "#8ee13f";
+      #    yellow = "#f3dc42";
+      #    blue = "#5ca6e6";
+      #    magenta = "#dd42dc";
+      #    cyan = "#62cc98";
+      #    white = "#e5e9ea";
+      #  };
+      #  bright = {
+      #    black = "#5e6162";
+      #    red = "#f05971";
+      #    green = "#aefc54";
+      #    yellow = "#ffef57";
+      #    blue = "#7bc7ed";
+      #    magenta = "#f45bf3";
+      #    cyan = "#63e9a9";
+      #    white = "#fdffff";
+      #  };
+      #};
+      #font = {
+      #  normal = {
+      #    family = "JetBrainsMono Nerd Font";
+      #    style = "Medium";
+      #  };
+      #  bold = {
+      #    family = "JetBrainsMono Nerd Font";
+      #    style = "Bold";
+      #  };
+      #  italic = {
+      #    family = "JetBrainsMono Nerd Font";
+      #    style = "MediumItalic";
+      #  };
+      #  bold_italic = {
+      #    family = "JetBrainsMono Nerd Font";
+      #    style = "BoldItalic";
+      #  };
+      #  size = 12;
+      #};
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
       keyboard = {

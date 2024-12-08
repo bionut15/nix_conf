@@ -202,7 +202,6 @@ in {
       asusctl
 
       discord
-      webcord
       signal-desktop
       jre
       # Javascriptar
@@ -221,8 +220,13 @@ in {
 
       fastfetch
 
+      #Dev
+      platformio
+
       lutris
       inputs.pollymc.packages.${pkgs.system}.pollymc
+      freecad
+      blender
 
       heroic
       wine
@@ -257,8 +261,12 @@ in {
 
       #style formatter
       lua54Packages.luacheck
+      lua54Packages.luarocks
       lua-language-server
       stylua
+      eslint
+
+      shellcheck
       nodePackages_latest.prettier
 
       #GTK
@@ -306,8 +314,8 @@ in {
       rustc
       rust-analyzer
       rustfmt
+
       cargo
-      freecad-wayland
 
       waypaper
     ]);
@@ -379,6 +387,10 @@ in {
     };
 
     udisks2.enable = true;
+    udev.packages = [
+      pkgs.platformio-core
+      pkgs.openocd
+    ];
 
     #printing.enable = true;
     #printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];

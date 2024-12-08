@@ -26,18 +26,22 @@
 
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     image = ./ghibliwall.png;
 
     targets.gtk.enable = true;
     targets.dunst.enable = true;
 
     targets.kitty.enable = false;
-    targets.hyprland.enable = false;
     targets.alacritty.enable = true;
     targets.tmux.enable = false;
+    targets.hyprland.enable = false;
     targets.waybar.enable = false;
 
+    opacity = {
+      terminal = 0.9;
+    };
     cursor = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
@@ -50,17 +54,17 @@
         name = "JetBrainsMono Nerd Font Mono";
       };
       sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
+        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "JetBrainsMono Nerd Font";
       };
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
+        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "JetBrainsMono Nerd Font";
       };
 
       sizes = {
         applications = 10;
-        terminal = 11;
+        terminal = 12;
         desktop = 10;
         popups = 10;
       };
