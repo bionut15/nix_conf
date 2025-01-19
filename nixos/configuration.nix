@@ -82,6 +82,11 @@ in {
   };
 
   services.xserver.videoDrivers = ["nvidia"];
+  services.xserver = {
+    desktopManager.gnome.enable = true;
+    #displayManager.startx.enable = true;
+    enable = true;
+  };
 
   services.greetd = {
     enable = true;
@@ -159,6 +164,7 @@ in {
       networkmanager
       networkmanagerapplet
       speedtest-cli
+      calcurse
 
       lazygit
       git
@@ -205,19 +211,27 @@ in {
       signal-desktop
       jre
       # Javascriptar
-      pnpm
-      nodejs
+      #pnpm
+      #nodejs
       nodePackages.live-server
 
       neovim
       inkscape
       libreoffice
       librecad
+
+      #GNOME extensions
+      gnome-tweaks
+      gnomeExtensions.forge
+      gnomeExtensions.unite
+      gnomeExtensions.appindicator
       gnome-calculator
       gnome-calendar
 
       firefox
 
+      plasticity
+      freecad-wayland
       fastfetch
 
       #Dev
@@ -225,15 +239,15 @@ in {
 
       lutris
       inputs.pollymc.packages.${pkgs.system}.pollymc
-      freecad
-      blender
 
+      xboxdrv
       heroic
       wine
       wine-wayland
       wineWowPackages.stable
       wineWowPackages.waylandFull
 
+      blender
       bottles
       fragments
       alacritty
@@ -267,7 +281,7 @@ in {
       eslint
 
       shellcheck
-      nodePackages_latest.prettier
+      #nodePackages_latest.prettier
 
       #GTK
       gtk2
@@ -282,21 +296,23 @@ in {
       gruvbox-dark-gtk
 
       #Hyprland rice
-
       qt5.qtwayland
       qt6.qtwayland
       pkgs.dunst
       waybar
+
+      #hyprpanel
       nwg-displays
       wofi
       pam
       mpd
-      hyprland
+
+      #X11 stuff
+      xwayland-run
       wlogout
       hypridle
       hyprlock
       hyprpaper
-      xdg-desktop-portal-hyprland
       xdg-utils
       libnotify
       bibata-cursors
@@ -315,6 +331,7 @@ in {
       rust-analyzer
       rustfmt
 
+      prusa-slicer
       cargo
 
       waypaper
@@ -339,7 +356,11 @@ in {
 
   security.rtkit.enable = true;
 
+  services.power-profiles-daemon.enable = false;
+
   services = {
+    #desktopManager.plasma6.enable = true;
+
     auto-cpufreq = {
       enable = true;
       settings = {
@@ -383,7 +404,7 @@ in {
       enable = true;
       profileConfig = "Quiet";
       enableUserService = true;
-      userLedModesConfig = "static";
+      userLedModesConfig = "rainbow-cycle";
     };
 
     udisks2.enable = true;
@@ -392,9 +413,6 @@ in {
       pkgs.openocd
     ];
 
-    #printing.enable = true;
-    #printing.drivers = [pkgs.hplip pkgs.hplipWithPlugin];
-
     mpd = {
       enable = true;
       startWhenNeeded = true;
@@ -402,8 +420,13 @@ in {
   };
 
   #programs
-  programs.fish.enable = true;
-
+  programs.fish = {
+    enable = true;
+    shellAbbrs = {
+      preloadw = "hyprctl hyprpaper preload";
+      wall = "hyprctl hyprpaper wallpaper";
+    };
+  };
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -425,9 +448,11 @@ in {
   # Enable  the OpenSSH daemon.
   services.openssh.enable = true;
 
+  programs.xwayland.enable = true;
   #Hyprland setup
   programs.hyprland = {
     enable = true;
+    withUWSM = true;
     xwayland.enable = true;
   };
   programs.steam = {
@@ -437,6 +462,7 @@ in {
   programs.gamemode.enable = true;
 
   environment.sessionVariables = {
+    KWIN_DRM_NO_AMS = "1";
     WLR_NO_HARDWARE_CURSOR = "1";
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
@@ -472,15 +498,15 @@ in {
         amdgpuBusId = "PCI:5:0:0";
         nvidiaBusId = "PCI:1:0:0";
       };
-      #package = config.boot.kernelPackages.nvidiaPackages.stable;
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "555.58.02";
-        sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-        sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
-        openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
-        settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-        persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
-      };
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #  version = "555.58.02";
+      #  sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+      #  sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
+      #  openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
+      #  settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+      #  persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
+      #};
     };
   };
   environment.etc = {

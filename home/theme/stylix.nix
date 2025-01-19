@@ -31,6 +31,7 @@
     image = ./ghibliwall.png;
 
     targets.gtk.enable = true;
+    targets.kde.enable = true;
     targets.dunst.enable = true;
 
     targets.kitty.enable = false;
@@ -51,15 +52,15 @@
     fonts = {
       monospace = {
         package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-        name = "JetBrainsMono Nerd Font Mono";
+        name = "JetBrainsMono Nerd Font";
       };
       sansSerif = {
-        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-        name = "JetBrainsMono Nerd Font";
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
       };
       serif = {
-        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-        name = "JetBrainsMono Nerd Font";
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
       };
 
       sizes = {

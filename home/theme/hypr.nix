@@ -10,13 +10,15 @@
       enable = true;
     };
 
-    systemd.enable = true;
+    #systemd.enable = true;
+    systemd.variables = ["--all"];
 
     settings = {
       "$mainMod" = "SUPER";
 
       exec-once = [
         "hyprpaper"
+        "dbus-update-activation-environment --systemd --all"
         "waybar &"
         "blueman-applet"
         "nm-applet --indicator &"
@@ -34,6 +36,7 @@
 
       env = [
         "Bibata-Modern-Ice,~/.icons/Bibata-modern-ice"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "QT_QPA_PLATFORM,wayland"
         "HYPRCURSOR_THEME,Bibata-Modern-Ice"
         "HYPRCURSOR_SIZE,22"
@@ -92,6 +95,12 @@
         name = "epic-mouse-v1";
         sensitivity = "-0.5";
       };
+
+      windowrulev2 = [
+        "idleinhibit fullscreen, class:^(*)$"
+        "idleinhibit fullscreen, title:^(*)$"
+        "idleinhibit fullscreen, fullscreen:1"
+      ];
 
       animations = {
         enabled = true;
@@ -191,16 +200,16 @@
       };
 
       listener = [
-        #{
-        #  timeout = 200;
-        #  on-timeout = "brightnessctl -s set 10 ";
-        #  on-resume = "brightnessctl -r";
-        #}
-        #{
-        #  timeout = 250;
-        #  on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
-        #  on-resume = "brightnessctl -rd rgb:kbd_backlight ";
-        #}
+        {
+          timeout = 200;
+          on-timeout = "brightnessctl -s set 10 ";
+          on-resume = "brightnessctl -r";
+        }
+        {
+          timeout = 250;
+          on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+          on-resume = "brightnessctl -rd rgb:kbd_backlight ";
+        }
         {
           timeout = 400;
           on-timeout = "loginctl lock-session ";
@@ -221,8 +230,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["~/Pictures/Wallpaper/Arcane_1.png"];
-      wallpaper = [", ~/Pictures/Wallpaper/Arcane_1.png"];
+      preload = ["~/Pictures/Wallpaper/Castlevania.jpg"];
+      wallpaper = [", ~/Pictures/Wallpaper/Castlevania.jpg"];
       splash = false;
     };
   };

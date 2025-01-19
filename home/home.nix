@@ -246,7 +246,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 36;
+        height = 34;
         spacing = 2;
         output = [
           "HDMI-A-1"
