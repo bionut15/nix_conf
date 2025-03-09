@@ -52,7 +52,7 @@ in {
     # Configuration written to ~/.config/starship.toml
     settings = {
       add_newline = false;
-      format = "$shlvl $shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$character";
+      format = "$shlvl $username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$character";
       shlvl = {
         disabled = false;
         symbol = "ﰬ ";
@@ -130,6 +130,35 @@ in {
       nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
     };
   };
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    initExtra = ''
+      eval "$(starship init zsh)"
+    '';
+    shellAliases = {
+      v = "nvim";
+      n = "nnn";
+      N = "sudo nnn";
+      home = "cd $HOME";
+      devel = "cd $HOME/Devel";
+      ls = "lsd";
+      ll = "lsd -l";
+      la = "lsd -a";
+      c = "clear";
+      homec = "nvim $HOME/.config/home-manager/home/home.nix";
+      nconfig = "nvim $HOME/.config/home-manager/nixos/configuration.nix";
+
+      #Nix allias
+      hm = "home-manager";
+    };
+    history.size = 10000;
+  };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -161,7 +190,7 @@ in {
     mouse = true;
     terminal = "tmux-256color";
 
-    shell = "${pkgs.fish}/bin/fish";
+    shell = "${pkgs.zsh}/bin/zsh";
 
     escapeTime = 0;
     historyLimit = 1400;
@@ -194,7 +223,7 @@ in {
                      set-option -g status-left "#[bg=colour241,fg=colour248]   #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
                      set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246]   %d.%m.%Y | 󰥔  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0]   #h "
 
-                     set-window-option -g window-status-current-format "#[bg=colour48,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour48,fg=colour0] #[bg=colour48 ,fg=colour0,bold]   #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour48,nobold,noitalics,nounderscore]▓▒░"
+                     set-window-option -g window-status-current-format "#[bg=colour37,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour37,fg=colour0] #[bg=colour37,fg=colour0,bold]   #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour37,nobold,noitalics,nounderscore]▓▒░"
 
                      set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
     '';
@@ -246,8 +275,8 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 34;
-        spacing = 2;
+        height = 37;
+        spacing = 4;
         output = [
           "HDMI-A-1"
           "eDP-1"
@@ -275,6 +304,7 @@ in {
         "cpu" = {
           format = " {usage}%  ";
           tooltip = true;
+          on-click = "alacritty -e btop";
         };
         "battery" = {
           states = {
@@ -740,7 +770,7 @@ in {
       background_blur = "7";
 
       dynamic_background_opacity = true;
-      background_opacity = "0.75";
+      #background_opacity = "0.75";
       shell = "fish";
 
       placement_strategy = "center";
@@ -757,9 +787,9 @@ in {
 
     shellIntegration.enableFishIntegration = true;
 
-    font.name = "JetBrainsMono Nerd Font";
-    font.size = 11;
-    #themeFile = "GruvboxMaterialDarkHard";
+    #font.name = "JetBrainsMono Nerd Font";
+    #font.size = 11;
+    ##themeFile = "GruvboxMaterialDarkHard";
   };
 
   programs.alacritty = {
@@ -768,7 +798,7 @@ in {
     settings = {
       #optional fish config
       terminal.shell = {
-        program = "/run/current-system/sw/bin/fish";
+        program = "/run/current-system/sw/bin/zsh";
       };
       env.TERM = "xterm-256color";
       window.opacity = 0.9;
@@ -806,8 +836,8 @@ in {
       #};
       #font = {
       #  normal = {
-      #    family = "JetBrainsMono Nerd Font";
-      #    style = "Medium";
+      #    family = "JetBrains Mono Nerd Font";
+      #    style = "Regular";
       #  };
       #  bold = {
       #    family = "JetBrainsMono Nerd Font";

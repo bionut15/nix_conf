@@ -81,7 +81,7 @@
       master = {
         new_status = true;
         allow_small_split = true;
-        mfact = 0.6;
+        mfact = 0.5;
         orientation = "left";
       };
 
@@ -230,8 +230,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["~/Pictures/Wallpaper/Castlevania.jpg"];
-      wallpaper = [", ~/Pictures/Wallpaper/Castlevania.jpg"];
+      preload = ["~/Pictures/Wallpaper/ign-waifu.png"];
+      wallpaper = [", ~/Pictures/Wallpaper/ign-waifu.png"];
       splash = false;
     };
   };

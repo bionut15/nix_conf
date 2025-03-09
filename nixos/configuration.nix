@@ -49,6 +49,7 @@ in {
   boot.loader.grub.useOSProber = true;
 
   boot.supportedFilesystems = ["ntfs"];
+
   networking.hostName = "nixos"; # Define your hostname.
   networking.firewall = {
     allowedTCPPorts = [2222 443 8080];
@@ -84,7 +85,6 @@ in {
   services.xserver.videoDrivers = ["nvidia"];
   services.xserver = {
     desktopManager.gnome.enable = true;
-    #displayManager.startx.enable = true;
     enable = true;
   };
 
@@ -132,7 +132,8 @@ in {
     packages = with pkgs; [];
   };
 
-  users.defaultUserShell = pkgs.fish;
+  #default shell also bash
+  users.defaultUserShell = pkgs.zsh;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -188,12 +189,13 @@ in {
       tmux
       mpv
       lsd
+      cmatrix
       cava
       lshw
       pandoc
       texliveTeTeX
 
-      obsidian
+      #obsidian
       obs-studio
       ffmpeg
 
@@ -225,13 +227,16 @@ in {
       gnomeExtensions.forge
       gnomeExtensions.unite
       gnomeExtensions.appindicator
+      gnomeExtensions.blur-my-shell
+      gnomeExtensions.gsconnect
+      gnomeExtensions.just-perfection
+      gnomeExtensions.quick-settings-tweaker
+
       gnome-calculator
       gnome-calendar
 
       firefox
 
-      plasticity
-      freecad-wayland
       fastfetch
 
       #Dev
@@ -247,10 +252,23 @@ in {
       wineWowPackages.stable
       wineWowPackages.waylandFull
 
-      blender
       bottles
       fragments
       alacritty
+
+      prusa-slicer
+      #Tiganie pt freecad
+      (pkgs.symlinkJoin {
+        name = "FreeCAD";
+        paths = [pkgs.freecad-wayland];
+        buildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/FreeCAD \
+          --set __GLX_VENDOR_LIBRARY_NAME mesa \
+          --set __EGL_VENDOR_LIBRARY_FILENAMES ${pkgs.mesa.drivers}/share/glvnd/egl_vendor.d/50_mesa.json
+        '';
+        meta.mainProgram = "FreeCAD";
+      })
 
       wget
       gnome-clocks
@@ -331,13 +349,14 @@ in {
       rust-analyzer
       rustfmt
 
-      prusa-slicer
+      blender
       cargo
 
       waypaper
     ]);
 
   #fonts
+  fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
@@ -359,7 +378,14 @@ in {
   services.power-profiles-daemon.enable = false;
 
   services = {
-    #desktopManager.plasma6.enable = true;
+    printing.enable = true;
+    printing.drivers = [pkgs.hplipWithPlugin];
+
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
 
     auto-cpufreq = {
       enable = true;
@@ -420,6 +446,8 @@ in {
   };
 
   #programs
+  programs.zsh.enable = true;
+
   programs.fish = {
     enable = true;
     shellAbbrs = {
@@ -437,13 +465,14 @@ in {
     enable = true;
     defaultEditor = true;
   };
+
   #SSH config
   programs.ssh = {
     startAgent = true;
   };
-  users.users."ionut".openssh.authorizedKeys.keyFiles = [
-    #./etc/ssh/keygen
-  ];
+  #users.users."ionut".openssh.authorizedKeys.keyFiles = [
+  #  #./etc/ssh/keygen
+  #];
 
   # Enable  the OpenSSH daemon.
   services.openssh.enable = true;

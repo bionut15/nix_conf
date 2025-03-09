@@ -11,7 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
     hyprland.url = "github:hyprwm/Hyprland";
 

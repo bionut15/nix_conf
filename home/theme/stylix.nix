@@ -34,7 +34,7 @@
     targets.kde.enable = true;
     targets.dunst.enable = true;
 
-    targets.kitty.enable = false;
+    targets.kitty.enable = true;
     targets.alacritty.enable = true;
     targets.tmux.enable = false;
     targets.hyprland.enable = false;
