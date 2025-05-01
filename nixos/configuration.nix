@@ -4,42 +4,10 @@
   pkgs,
   pkgs-unstable,
   ...
-}: let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
-
-  # Bootloader.
-  #Systemd-boot
-  #systemd = {
-  #  sleep.extraConfig = ''
-  #    AllowSuspend=no
-  #    AllowHibernation=no
-  #    AllowHybridSleep=no
-  #    AllowSuspendThenHibernate=no
-  #  '';
-  #};
-
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.systemd-boot.consoleMode = "keep";
-  #boot.loader.systemd-boot.configurationLimit = 10;
-  #boot.loader.systemd-boot.extraEntries ={
-  #      "windows.conf"=''
-  #      title Windows
-  #      efi /dev/nvme0n1p1@/efi/Microsoft/Boot/bootmgfw.efi
-  #      sort-key o_memtest
-  #      '';
-  #};
-
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -50,16 +18,11 @@ in {
 
   boot.supportedFilesystems = ["ntfs"];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos"; 
   networking.firewall = {
     allowedTCPPorts = [2222 443 8080];
     enable = false;
   };
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -97,26 +60,7 @@ in {
       };
     };
   };
-  console = {
-    colors = [
-      "343F44"
-      "E67E80"
-      "A7C080"
-      "DBBC7F"
-      "7FBBB3"
-      "D699B6"
-      "83C092"
-      "D3C6AA"
-      "5C6A72"
-      "F85552"
-      "8DA101"
-      "DFA000"
-      "3A94C5"
-      "DF69BA"
-      "35A77C"
-      "DFDDC8"
-    ];
-  };
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ionut = {
@@ -150,7 +94,6 @@ in {
       pipewire
       wireplumber
       alsa-lib
-      pavucontrol
       pwvucontrol
       bluez-tools
       bluez
@@ -164,8 +107,6 @@ in {
       brightnessctl
       networkmanager
       networkmanagerapplet
-      speedtest-cli
-      calcurse
 
       lazygit
       git
@@ -179,12 +120,8 @@ in {
       lf
       kitty
       trash-cli
-      pistol
-      imagemagick
-      ghostscript
       poppler
-      hplipWithPlugin
-      cups
+    
 
       tmux
       mpv
@@ -211,41 +148,21 @@ in {
 
       discord
       signal-desktop
-      jre
-      # Javascriptar
-      #pnpm
-      #nodejs
-      nodePackages.live-server
+
 
       neovim
       inkscape
       libreoffice
-      librecad
+  
 
-      #GNOME extensions
-      gnome-tweaks
-      gnomeExtensions.forge
-      gnomeExtensions.unite
-      gnomeExtensions.appindicator
-      gnomeExtensions.blur-my-shell
-      gnomeExtensions.gsconnect
-      gnomeExtensions.just-perfection
-      gnomeExtensions.quick-settings-tweaker
-
-      gnome-calculator
-      gnome-calendar
 
       firefox
 
       fastfetch
 
-      #Dev
-      platformio
-
       lutris
       inputs.pollymc.packages.${pkgs.system}.pollymc
 
-      xboxdrv
       heroic
       wine
       wine-wayland
@@ -297,10 +214,8 @@ in {
       lua-language-server
       stylua
       eslint
-
       shellcheck
-      #nodePackages_latest.prettier
-
+    
       #GTK
       gtk2
       gtk3
@@ -334,10 +249,6 @@ in {
       xdg-utils
       libnotify
       bibata-cursors
-
-      #Secure boot
-      #sbctl
-      #niv
 
       #Nix Stuff
       home-manager
@@ -378,8 +289,8 @@ in {
   services.power-profiles-daemon.enable = false;
 
   services = {
-    printing.enable = true;
-    printing.drivers = [pkgs.hplipWithPlugin];
+    #printing.enable = true;
+    #printing.drivers = [pkgs.hplipWithPlugin];
 
     avahi = {
       enable = true;
@@ -388,7 +299,7 @@ in {
     };
 
     auto-cpufreq = {
-      enable = true;
+      enable = false;
       settings = {
         battery = {
           governor = "powersave";
@@ -426,12 +337,6 @@ in {
 
     blueman.enable = true;
 
-    asusd = {
-      enable = true;
-      profileConfig = "Quiet";
-      enableUserService = true;
-      userLedModesConfig = "rainbow-cycle";
-    };
 
     udisks2.enable = true;
     udev.packages = [
@@ -448,18 +353,11 @@ in {
   #programs
   programs.zsh.enable = true;
 
-  programs.fish = {
-    enable = true;
-    shellAbbrs = {
-      preloadw = "hyprctl hyprpaper preload";
-      wall = "hyprctl hyprpaper wallpaper";
-    };
-  };
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/ionut/.config/home-manager";
+    flake = "/home/ionut/.config/NIX-HOME-MANAGER";
   };
   programs.neovim = {
     enable = true;
@@ -470,9 +368,6 @@ in {
   programs.ssh = {
     startAgent = true;
   };
-  #users.users."ionut".openssh.authorizedKeys.keyFiles = [
-  #  #./etc/ssh/keygen
-  #];
 
   # Enable  the OpenSSH daemon.
   services.openssh.enable = true;
@@ -481,7 +376,6 @@ in {
   #Hyprland setup
   programs.hyprland = {
     enable = true;
-    withUWSM = true;
     xwayland.enable = true;
   };
   programs.steam = {
@@ -510,33 +404,7 @@ in {
         Experimental = true;
       };
     };
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      powerManagement.finegrained = false;
-      open = false;
-      nvidiaSettings = true;
-
-      prime = {
-        sync.enable = true;
-        #change offload when need to be separte
-        #offload = {
-        #  enable = true;
-        #  enableOffloadCmd = true;
-        #};
-        amdgpuBusId = "PCI:5:0:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #  version = "555.58.02";
-      #  sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-      #  sha256_aarch64 = "sha256-wb20isMrRg8PeQBU96lWJzBMkjfySAUaqt4EgZnhyF8=";
-      #  openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
-      #  settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-      #  persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
-      #};
-    };
+   
   };
   environment.etc = {
   };
