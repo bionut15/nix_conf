@@ -18,7 +18,7 @@
 
   boot.supportedFilesystems = ["ntfs"];
 
-  networking.hostName = "nixos"; 
+  networking.hostName = "nixos";
   networking.firewall = {
     allowedTCPPorts = [2222 443 8080];
     enable = false;
@@ -45,7 +45,7 @@
     LC_TIME = "ro_RO.UTF-8";
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["amdgpu"];
   services.xserver = {
     desktopManager.gnome.enable = true;
     enable = true;
@@ -60,7 +60,6 @@
       };
     };
   };
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ionut = {
@@ -121,7 +120,6 @@
       kitty
       trash-cli
       poppler
-    
 
       tmux
       mpv
@@ -142,28 +140,22 @@
       udisks
       ncdu
       btop
-      nvitop
-
-      asusctl
 
       discord
       signal-desktop
-
+      unityhub
 
       neovim
       inkscape
       libreoffice
-  
-
 
       firefox
+      obsidian
 
       fastfetch
 
       lutris
-      inputs.pollymc.packages.${pkgs.system}.pollymc
 
-      heroic
       wine
       wine-wayland
       wineWowPackages.stable
@@ -215,7 +207,7 @@
       stylua
       eslint
       shellcheck
-    
+
       #GTK
       gtk2
       gtk3
@@ -245,7 +237,6 @@
       wlogout
       hypridle
       hyprlock
-      hyprpaper
       xdg-utils
       libnotify
       bibata-cursors
@@ -289,17 +280,28 @@
   services.power-profiles-daemon.enable = false;
 
   services = {
-    #printing.enable = true;
-    #printing.drivers = [pkgs.hplipWithPlugin];
+    printing = {
+      enable = true;
+      drivers = [pkgs.hplipWithPlugin pkgs.hplip];
+      listenAddresses = ["*:631"];
+      allowFrom = ["all"];
+      browsing = true;
+      defaultShared = true;
+      openFirewall = true;
+    };
 
     avahi = {
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
+      publish = {
+        enable = true;
+        userServices = true;
+      };
     };
 
     auto-cpufreq = {
-      enable = false;
+      enable = true;
       settings = {
         battery = {
           governor = "powersave";
@@ -337,7 +339,6 @@
 
     blueman.enable = true;
 
-
     udisks2.enable = true;
     udev.packages = [
       pkgs.platformio-core
@@ -357,7 +358,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/ionut/.config/NIX-HOME-MANAGER";
+    flake = "/home/ionut/.config/nix_conf/";
   };
   programs.neovim = {
     enable = true;
@@ -404,7 +405,6 @@
         Experimental = true;
       };
     };
-   
   };
   environment.etc = {
   };

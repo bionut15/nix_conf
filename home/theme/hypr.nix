@@ -27,11 +27,10 @@
         "asusctl profile -P Quiet &"
         "[workspace 1 silent] firefox"
         "[workspace 2 silent] alacritty  -e tmux "
-        #"[workspace 4 silent] obsidian"
       ];
 
       monitor = [
-        ",highres,auto,1"
+        "eDP-1,preferred,auto,1"
       ];
 
       env = [
@@ -61,7 +60,7 @@
 
         border_part_of_window = true;
 
-        layout = "master";
+        layout = "dwindle";
         "col.active_border" = "rgba(6a9b8aff)";
         "col.inactive_border" = "rgba(334f42ff)";
 
@@ -227,15 +226,6 @@
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      preload = ["~/Pictures/Wallpaper/ign-waifu.png"];
-      wallpaper = [", ~/Pictures/Wallpaper/ign-waifu.png"];
-      splash = false;
-    };
-  };
-
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -249,7 +239,7 @@
         valign = "center";
       };
       background = {
-        path = "~/Pictures/Wallpaper/wallpaper.png ";
+        path = "~/Pictures/Minecraft_2.jpeg ";
         color = "rgba(25, 20, 20, 1.0)";
 
         blur_passes = "4";

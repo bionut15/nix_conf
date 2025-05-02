@@ -5,6 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     unstable.url = "nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix = {
       url = "github:danth/stylix/release-24.05";
@@ -28,6 +29,7 @@
     home-manager,
     unstable,
     stylix,
+    nixos-hardware,
     ...
   }: let
     system = "x86_64-linux";
@@ -49,6 +51,7 @@
       };
       modules = [
         ./nixos/configuration.nix
+        nixos-hardware.nixosModules.lenovo-ideapad-slim-5
       ];
     };
   };

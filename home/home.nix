@@ -275,7 +275,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 37;
+        height = 40;
         spacing = 4;
         output = [
           "HDMI-A-1"
@@ -333,7 +333,7 @@ in {
             car = " ";
             default = [" " " " " "];
           };
-          on-click = "pavucontrol";
+          on-click = "pwvucontrol";
         };
         "backlight" = {
           format = " {percent}% {icon}";
@@ -937,6 +937,7 @@ in {
   imports = [
     ./theme/stylix.nix
     ./theme/hypr.nix
+    ./theme/hyprpaper.nix
   ];
 
   programs.home-manager.enable = true;
