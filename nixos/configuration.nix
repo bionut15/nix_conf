@@ -47,7 +47,6 @@
 
   services.xserver.videoDrivers = ["amdgpu"];
   services.xserver = {
-    desktopManager.gnome.enable = true;
     enable = true;
   };
 
@@ -93,6 +92,7 @@
       pipewire
       wireplumber
       alsa-lib
+      pavucontrol
       pwvucontrol
       bluez-tools
       bluez
@@ -107,6 +107,7 @@
       networkmanager
       networkmanagerapplet
 
+      github-desktop
       lazygit
       git
       starship
@@ -146,6 +147,7 @@
       unityhub
 
       neovim
+      arduino-ide
       inkscape
       libreoffice
 
