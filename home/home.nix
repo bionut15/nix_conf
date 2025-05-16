@@ -235,6 +235,32 @@ in {
 
   programs.wlogout = {
     enable = true;
+    layout = [
+      {
+        label = "shutdown";
+        action = "systemctl poweroff";
+        text = "Shutdown";
+        keybind = "s";
+      }
+      {
+        label = "sleep";
+        action = "systemctl sleep";
+        text = "Sleep";
+        keybind = "S";
+      }
+      {
+        label = "logout";
+        action = "logout";
+        text = "Logout";
+        keybind = "l";
+      }
+      {
+        label = "hibernate";
+        action = "systemctl hybernate";
+        text = "Hybernate";
+        keybind = "h";
+      }
+    ];
     style = ''
                    * {
                    	box-shadow: none;
@@ -246,7 +272,6 @@ in {
           			backdrop-filter: blur(10px);
         opacity: 0.8;
                    }
-
                    button {
                        border-radius: 55px;
                        border-color: black;
@@ -764,6 +789,36 @@ in {
     '';
   };
 
+  programs.zathura = {
+    enable = true;
+    extraConfig = "set sandbox none
+		set statusbar-h-padding 0
+		set statusbar-v-padding 0
+		set page-padding 1
+		set selection-clipboard clipboard";
+    mappings = {
+      u = "scroll half-up";
+      d = "scroll half-down";
+      D = "toggle_page_mode";
+      r = "reload";
+      R = "rotate";
+      K = "zoom in";
+      J = "zoom out";
+      i = "recolor";
+      p = "print";
+      g = "goto top";
+      "[fullscreen] u" = "scroll half-up";
+      "[fullscreen] d" = "scroll half-down";
+      "[fullscreen] D" = "toggle_page_mode";
+      "[fullscreen] r" = "reload";
+      "[fullscreen] R" = "rotate";
+      "[fullscreen] K" = "zoom in";
+      "[fullscreen] J" = "zoom out";
+      "[fullscreen] i" = "recolor";
+      "[fullscreen] p" = "print";
+      "[fullscreen] g" = "goto top";
+    };
+  };
   programs.kitty = {
     enable = true;
     settings = {

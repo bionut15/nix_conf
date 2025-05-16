@@ -57,7 +57,7 @@
 
         border_part_of_window = true;
 
-        layout = "dwindle";
+        layout = "master";
         "col.active_border" = "rgba(6a9b8aff)";
         "col.inactive_border" = "rgba(334f42ff)";
 
