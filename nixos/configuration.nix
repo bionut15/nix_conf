@@ -71,6 +71,7 @@
       "networkmanager"
       "wheel"
       "video"
+      "dialout"
     ];
     packages = with pkgs; [];
   };
@@ -105,6 +106,7 @@
   # Services
 
   security.rtkit.enable = true;
+  security.pam.services.wayland.enableGnomeKeyring = true;
 
   services.power-profiles-daemon.enable = false;
 
@@ -115,6 +117,8 @@
     AllowSuspendThenHibernate=yes
   '';
   services = {
+    gnome.gnome-keyring.enable = true;
+
     printing = {
       enable = true;
       drivers = [pkgs.hplipWithPlugin pkgs.hplip];
