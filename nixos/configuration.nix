@@ -6,27 +6,36 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
+    ./../hosts/NixPad/hardware-configuration.nix
     ./../hosts/desktop_apps.nix
+    ./../hosts/programs.nix
+    ./../hosts/services.nix
   ];
 
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.devices = ["nodev"];
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.useOSProber = true;
-
-  boot.supportedFilesystems = ["ntfs"];
-
-  networking.hostName = "nixos";
-  networking.firewall = {
-    allowedTCPPorts = [2222 443 8080];
-    enable = false;
+      grub = {
+        enable = true;
+        devices = ["nodev"];
+        efiSupport = true;
+        useOSProber = true;
+      };
+    };
+    supportedFilesystems = ["ntfs"];
   };
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixPad";
+
+    firewall = {
+      allowedTCPPorts = [2222 443 8080];
+      enable = false;
+    };
+
+    networkmanager.enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Bucharest";
@@ -44,21 +53,6 @@
     LC_PAPER = "ro_RO.UTF-8";
     LC_TELEPHONE = "ro_RO.UTF-8";
     LC_TIME = "ro_RO.UTF-8";
-  };
-
-  services.xserver.videoDrivers = ["amdgpu"];
-  services.xserver = {
-    enable = true;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-session --cmd Hyprland";
-        user = "greeter";
-      };
-    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -81,34 +75,37 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  nix.settings.warn-dirty = false;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    settings.warn-dirty = false;
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   #fonts
-  fonts.fontDir.enable = true;
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "CascadiaMono"
-        "Noto"
-        "GeistMono"
-      ];
-    })
-  ];
-  #Wayland
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "CascadiaMono"
+          "Noto"
+          "GeistMono"
+        ];
+      })
+    ];
+  };
 
-  # Services
+  #Wayland
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+  };
 
   security.rtkit.enable = true;
   security.pam.services.wayland.enableGnomeKeyring = true;
-
-  services.power-profiles-daemon.enable = false;
 
   systemd.sleep.extraConfig = ''
     AllowSuspend=yes
@@ -116,115 +113,6 @@
     AllowHybridSleep=yes
     AllowSuspendThenHibernate=yes
   '';
-  services = {
-    gnome.gnome-keyring.enable = true;
-
-    printing = {
-      enable = true;
-      drivers = [pkgs.hplipWithPlugin pkgs.hplip];
-      listenAddresses = ["*:631"];
-      allowFrom = ["all"];
-      browsing = true;
-      defaultShared = true;
-      openFirewall = true;
-    };
-
-    avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-      publish = {
-        enable = true;
-        userServices = true;
-      };
-    };
-
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          turbo = "never";
-        };
-      };
-    };
-
-    logind = {
-      lidSwitch = "suspend";
-      lidSwitchDocked = "suspend";
-      lidSwitchExternalPower = "suspend";
-    };
-    flatpak.enable = true;
-
-    pipewire = {
-      enable = true;
-
-      audio.enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-
-      wireplumber.extraConfig = {
-        "monitor.bluez.properties" = {
-          "bluez5.enable-sbc-xq" = true;
-          "bluez5.enable-msbc" = true;
-          "bluez5.enable-hw-volume" = true;
-          "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
-        };
-      };
-    };
-
-    blueman.enable = true;
-
-    udisks2.enable = true;
-    udev.packages = [
-      pkgs.platformio-core
-      pkgs.openocd
-    ];
-
-    mpd = {
-      enable = true;
-      startWhenNeeded = true;
-    };
-  };
-
-  #programs
-  programs.zsh.enable = true;
-
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/ionut/.config/nix_conf/";
-  };
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
-  #SSH config
-  programs.ssh = {
-    startAgent = true;
-  };
-
-  # Enable  the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  programs.xwayland.enable = true;
-  #Hyprland setup
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-  programs.steam = {
-    enable = true;
-  };
-  programs.steam.gamescopeSession.enable = true;
-  programs.gamemode.enable = true;
 
   environment.sessionVariables = {
     KWIN_DRM_NO_AMS = "1";
@@ -233,17 +121,21 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+
   hardware = {
     graphics.enable = true;
     cpu.amd.updateMicrocode = true;
 
     pulseaudio.enable = false;
-    bluetooth.enable = true;
-    bluetooth.powerOnBoot = true;
-    bluetooth.settings = {
-      General = {
-        Enable = "Source,Sink,Media,Socket";
-        Experimental = false;
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+          Experimental = false;
+        };
       };
     };
   };
