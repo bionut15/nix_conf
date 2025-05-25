@@ -22,6 +22,7 @@
       unzip
       zip
       brillo
+      tree
 
       brightnessctl
       networkmanager
@@ -147,8 +148,8 @@
       qt6.qtwayland
       pkgs.dunst
       waybar
+      hyprpanel
 
-      #hyprpanel
       nwg-displays
       wofi
       pam

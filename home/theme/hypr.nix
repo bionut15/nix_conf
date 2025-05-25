@@ -10,7 +10,7 @@
       enable = true;
     };
 
-    #systemd.enable = true;
+    systemd.enable = false;
     systemd.variables = ["--all"];
 
     settings = {
@@ -19,7 +19,8 @@
       exec-once = [
         "hyprpaper"
         "dbus-update-activation-environment --systemd --all"
-        "waybar &"
+        "hyprpanel &"
+        #"waybar &"
         "blueman-applet"
         "nm-applet --indicator &"
         "hyprctl setcursor Bibata-Modern-Ice 22"
@@ -50,8 +51,8 @@
       ];
 
       general = {
-        gaps_in = 5;
-        gaps_out = 7;
+        gaps_in = 4;
+        gaps_out = 6;
 
         border_size = 2;
 
@@ -65,7 +66,7 @@
       };
 
       decoration = {
-        rounding = 4;
+        rounding = 6;
 
         blur = {
           enabled = true;

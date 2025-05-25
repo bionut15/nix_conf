@@ -87,14 +87,10 @@
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "CascadiaMono"
-          "Noto"
-          "GeistMono"
-        ];
-      })
+      jetbrains-mono
+      #caskaydia-mono
+      #noto
+      #geist-mono
     ];
   };
 

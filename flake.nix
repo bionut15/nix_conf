@@ -13,6 +13,7 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprland.url = "github:hyprwm/Hyprland";
 
     pollymc = {
@@ -29,6 +30,7 @@
     home-manager,
     unstable,
     stylix,
+    hyprpanel,
     nixos-hardware,
     ...
   }: let
@@ -43,15 +45,16 @@
         ./home/home.nix
       ];
     };
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixPad = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
         inherit inputs;
+        inherit system;
         inherit pkgs-unstable;
       };
       modules = [
+        {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
         ./nixos/configuration.nix
-        #nixos-hardware.nixosModules.lenovo-ideapad-slim-5
       ];
     };
   };
