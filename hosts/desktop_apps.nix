@@ -15,6 +15,8 @@
       pwvucontrol
       bluez-tools
       bluez
+      libgtop
+      dart-sass
 
       python3
       #Utils
