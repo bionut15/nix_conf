@@ -53,6 +53,7 @@
       lshw
       pandoc
       texliveTeTeX
+      live-server
 
       #obsidian
       obs-studio
@@ -71,6 +72,7 @@
 
       neovim
       arduino-ide
+      arduino-cli
       inkscape
       libreoffice
 
