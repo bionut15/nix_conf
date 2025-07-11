@@ -139,6 +139,12 @@ in {
 
     initExtra = ''
       eval "$(starship init zsh)"
+    
+          export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
+          export LLVM_CONFIG_PATH=${pkgs.llvmPackages.llvm}/bin/llvm-config
+          export LD_LIBRARY_PATH=${pkgs.llvmPackages.libclang.lib}/lib:$LD_LIBRARY_PATH
+          export PKG_CONFIG_PATH=${pkgs.opencv}/lib/pkgconfig
+
     '';
     shellAliases = {
       v = "nvim";
@@ -214,18 +220,18 @@ in {
             set-option -sa terminal-overrides ",xterm*:Tc"
 
                            # window status
-                     set-option -g status-position bottom
+			   # Global style: only one color used
+set-option -g status-style "bg=colour0,fg=colour15"
 
-              	set-option -g status-left-length 50
-              set-option -g status-right-length 80
-                    set-option -g status-style "bg=colour236,fg=colour223"
+set-option -g status-left "#[default]   #S "
 
-                     set-option -g status-left "#[bg=colour241,fg=colour248]   #S #[bg=colour237,fg=colour241,nobold,noitalics,nounderscore]▓▒░"
-                     set-option -g status-right "#[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]░▒▓#[bg=colour239,fg=colour246]   %d.%m.%Y | 󰥔  %H:%M  #[bg=colour4 ,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour4,fg=colour0]   #h "
+set-option -g status-right "#[default]  %d.%m.%Y | 󰥔  %H:%M |   #h"
 
-                     set-window-option -g window-status-current-format "#[bg=colour37,fg=colour0,nobold,noitalics,nounderscore]▓▒░#[bg=colour37,fg=colour0] #[bg=colour37,fg=colour0,bold]   #W #{?window_zoomed_flag,*Z,} #[bg=colour0,fg=colour37,nobold,noitalics,nounderscore]▓▒░"
+set-window-option -g window-status-current-format "#[default]|   #W #{?window_zoomed_flag,*Z,} |"
 
-                     set-window-option -g window-status-format "#[bg=colour239,fg=colour237,noitalics]▓▒░#[bg=colour239,fg=colour223] #I |#[bg=colour239,fg=colour223] #W #[bg=colour237,fg=colour239,noitalics]▓▒░"
+set-window-option -g window-status-format "#[default]| #I | #W |"
+
+
     '';
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
@@ -822,15 +828,15 @@ in {
   programs.kitty = {
     enable = true;
     settings = {
-      background_blur = "7";
+      background_blur = "8";
 
       dynamic_background_opacity = true;
-      #background_opacity = "0.75";
+      background_opacity = "0.85";
       shell = "fish";
 
       placement_strategy = "center";
 
-      window_margin_width = "0";
+      window_margin_width = "30";
       window_border_width = "0";
       window_padding_width = "0";
 
@@ -842,72 +848,48 @@ in {
 
     shellIntegration.enableFishIntegration = true;
 
-    #font.name = "JetBrainsMono Nerd Font";
-    #font.size = 11;
-    ##themeFile = "GruvboxMaterialDarkHard";
+    font.name = "JetBrainsMono Nerd Font";
+    font.size = 12;
+    themeFile = "GruvboxMaterialDarkHard";
   };
 
   programs.alacritty = {
     enable = true;
-    # custom settings
     settings = {
-      #optional fish config
       terminal.shell = {
         program = "/run/current-system/sw/bin/zsh";
       };
       env.TERM = "xterm-256color";
-      window.opacity = 0.9;
 
+	window = {
+		blur =true;
+		opacity = 0.9;
+	};
       window.padding = {
-        x = 0;
-        y = 0;
+        x = 25;
+        y = 25;
       };
 
-      #colors = {
-      #  primary = {
-      #    background = "#131617";
-      #    foreground = "#e5e9ea";
-      #  };
-      #  normal = {
-      #    black = "#3f4343";
-      #    red = "#e73e55";
-      #    green = "#8ee13f";
-      #    yellow = "#f3dc42";
-      #    blue = "#5ca6e6";
-      #    magenta = "#dd42dc";
-      #    cyan = "#62cc98";
-      #    white = "#e5e9ea";
-      #  };
-      #  bright = {
-      #    black = "#5e6162";
-      #    red = "#f05971";
-      #    green = "#aefc54";
-      #    yellow = "#ffef57";
-      #    blue = "#7bc7ed";
-      #    magenta = "#f45bf3";
-      #    cyan = "#63e9a9";
-      #    white = "#fdffff";
-      #  };
-      #};
-      #font = {
-      #  normal = {
-      #    family = "JetBrains Mono Nerd Font";
-      #    style = "Regular";
-      #  };
-      #  bold = {
-      #    family = "JetBrainsMono Nerd Font";
-      #    style = "Bold";
-      #  };
-      #  italic = {
-      #    family = "JetBrainsMono Nerd Font";
-      #    style = "MediumItalic";
-      #  };
-      #  bold_italic = {
-      #    family = "JetBrainsMono Nerd Font";
-      #    style = "BoldItalic";
-      #  };
-      #  size = 12;
-      #};
+      font = {
+        normal = {
+          family = "GeistMono Nerd Font";
+          style = "Regular";
+        };
+        bold = {
+          family = "GeistMono Nerd Font";
+          style = "Bold";
+        };
+        italic = {
+          family = "GeistMono Nerd Font";
+          style = "MediumItalic";
+        };
+        bold_italic = {
+          family = "GeistMono Nerd Font";
+          style = "BoldItalic";
+        };
+        size = 12;
+      };
+
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
       keyboard = {

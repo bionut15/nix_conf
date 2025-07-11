@@ -26,22 +26,22 @@
 
   stylix = {
     enable = true;
-    polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    polarity = "light";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
     image = ./ghibliwall.png;
 
     targets.gtk.enable = true;
     targets.kde.enable = true;
     targets.dunst.enable = true;
 
-    targets.kitty.enable = true;
-    targets.alacritty.enable = true;
-    targets.tmux.enable = false;
+    targets.kitty.enable = false;
+    targets.alacritty.enable = false;
+    targets.tmux.enable = true;
     targets.hyprland.enable = false;
     targets.waybar.enable = false;
 
     opacity = {
-      terminal = 0.9;
+      terminal = 0.95;
     };
     cursor = {
       name = "Bibata-Modern-Ice";
@@ -51,15 +51,19 @@
 
     fonts = {
       monospace = {
-        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-        name = "JetBrainsMono Nerd Font";
+        package = pkgs.nerd-fonts.geist-mono;
+        name = "GeistMono Nerd Font Propo";
       };
       sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
+        package = pkgs.nerd-fonts.geist-mono;
+        name = "GeistMono Nerd Font Propo";
       };
+      #sansSerif = {
+      #  package = pkgs.nerd-fonts.dejavu-sans-mono;
+      #  name = "DejaVuSansM Nerd Font Mono";
+      #};
       serif = {
-        package = pkgs.dejavu_fonts;
+        package = pkgs.nerd-fonts.dejavu-sans-mono;
         name = "DejaVu Serif";
       };
 

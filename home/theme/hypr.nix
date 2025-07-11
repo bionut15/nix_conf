@@ -32,6 +32,7 @@
 
       monitor = [
         "eDP-1,preferred,auto,1"
+	  "HDMI-A-1 ,preferred,auto,0.83"
       ];
 
       env = [
@@ -56,7 +57,6 @@
 
         border_size = 2;
 
-        border_part_of_window = true;
 
         layout = "master";
         "col.active_border" = "rgba(6a9b8aff)";
@@ -225,13 +225,13 @@
   };
 
   programs.hyprlock = {
-    enable = true;
+    enable = false;
     settings = {
       label = {
         text = "Enter your password to unlock";
         color = "rgba(200, 200, 200, 1.0)";
         font_size = 25;
-        font_family = "JetBrainsMono Nerd Font Mono";
+        font_family = "JetBrainsMono Nerd Font";
         position = "0, 200";
         halign = "center";
         valign = "center";

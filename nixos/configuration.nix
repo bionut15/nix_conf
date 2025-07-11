@@ -86,11 +86,12 @@
   #fonts
   fonts = {
     fontDir.enable = true;
-    packages = with pkgs; [
-      jetbrains-mono
-      #caskaydia-mono
-      #noto
-      #geist-mono
+    packages = [
+      pkgs.nerd-fonts.jetbrains-mono
+       pkgs.nerd-fonts.caskaydia-mono
+       pkgs.nerd-fonts.noto
+       pkgs.nerd-fonts.geist-mono
+  pkgs.nerd-fonts.dejavu-sans-mono
     ];
   };
 

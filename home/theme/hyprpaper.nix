@@ -10,7 +10,8 @@
       preload = ["/home/ionut/Pictures/Minecraft_1.jpeg"];
 
       wallpaper = [
-        ",/home/ionut/Pictures/Minecraft_1.jpeg"
+        "HDMI-A-1,/home/ionut/Pictures/Minecraft_1.jpeg"
+        "eDP-1,/home/ionut/Pictures/Minecraft_1.jpeg"
       ];
     };
   };

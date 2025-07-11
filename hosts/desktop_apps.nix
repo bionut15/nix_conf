@@ -70,6 +70,7 @@
       signal-desktop
       unityhub
 
+	vscodium
       neovim
       arduino-ide
       arduino-cli
@@ -107,7 +108,12 @@
       })
 
       wget
+	nodejs_24
+	prettierd
+	ruby
+
       gnome-clocks
+	devtoolbox
       nautilus
       xfce.thunar
       xfce.tumbler
@@ -116,6 +122,9 @@
       #Dev
       marp-cli
       clang
+    llvmPackages.libclang
+    llvmPackages.llvm
+    pkg-config
       llvm
       gcc
       cmake
@@ -140,6 +149,7 @@
       gtk3
       gtk4
       glib
+	font-manager
       #lxappearance-gtk2
       gnome-themes-extra
       adwaita-icon-theme
@@ -165,9 +175,15 @@
       hypridle
       hyprlock
       xdg-utils
+
       libnotify
       bibata-cursors
 
+libclang
+gpp
+ libcxx
+	libcxxrt
+	clang
       #Nix Stuff
       home-manager
       nh
@@ -177,9 +193,11 @@
       rustc
       rust-analyzer
       rustfmt
-
       blender
       cargo
+	opencv
+	potrace
+	imagemagick
 
       waypaper
     ]);
