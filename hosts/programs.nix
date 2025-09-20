@@ -18,6 +18,9 @@
       enable = true;
       defaultEditor = true;
     };
+    git = {
+
+    };
 
     #SSH config
     ssh = {

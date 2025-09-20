@@ -17,10 +17,9 @@
       "$mainMod" = "SUPER";
 
       exec-once = [
-        "hyprpaper"
+        # "hyprpaper"
         "dbus-update-activation-environment --systemd --all"
         "hyprpanel &"
-        #"waybar &"
         "blueman-applet"
         "nm-applet --indicator &"
         "hyprctl setcursor Bibata-Modern-Ice 22"
@@ -32,7 +31,7 @@
 
       monitor = [
         "eDP-1,preferred,auto,1"
-	  "HDMI-A-1 ,preferred,auto,0.83"
+        "HDMI-A-1,preferred,auto,0.83"
       ];
 
       env = [
@@ -57,10 +56,11 @@
 
         border_size = 2;
 
-
         layout = "master";
-        "col.active_border" = "rgba(6a9b8aff)";
-        "col.inactive_border" = "rgba(334f42ff)";
+        # "col.active_border" = "rgba(6a9b8aff)";
+        # "col.inactive_border" = "rgba(334f42ff)";
+        "col.active_border" = "rgba(afae90ff)";
+        "col.inactive_border" = "rgba(8c8b72ff)";
 
         allow_tearing = false;
       };

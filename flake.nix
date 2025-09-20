@@ -10,11 +10,13 @@
     stylix = {
       url = "github:danth/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     hyprland.url = "github:hyprwm/Hyprland";
+   nvf= {
+        url="github:notashelf/nvf";
+        inputs.nixpkgs.follows = "unstable";
+    };
 
     pollymc = {
       url = "github:fn2006/PollyMC";
@@ -30,7 +32,7 @@
     home-manager,
     unstable,
     stylix,
-    hyprpanel,
+    nvf,
     nixos-hardware,
     ...
   }: let
@@ -53,8 +55,8 @@
         inherit pkgs-unstable;
       };
       modules = [
-        {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
         ./nixos/configuration.nix
+	  nvf.nixosModules.default
       ];
     };
   };

@@ -16,7 +16,6 @@
       bluez-tools
       bluez
       libgtop
-      dart-sass
 
       python3
       #Utils
@@ -25,10 +24,14 @@
       zip
       brillo
       tree
+      ripgrep
+      pass
+	neomutt
 
       brightnessctl
       networkmanager
       networkmanagerapplet
+      logiops
 
       github-desktop
       lazygit
@@ -44,6 +47,8 @@
       kitty
       trash-cli
       poppler
+      waypaper
+      swww
 
       tmux
       mpv
@@ -68,13 +73,9 @@
 
       discord
       signal-desktop
-      unityhub
 
-	vscodium
-      neovim
+      vscodium
       arduino-ide
-      arduino-cli
-      inkscape
       libreoffice
 
       firefox
@@ -108,12 +109,11 @@
       })
 
       wget
-	nodejs_24
-	prettierd
-	ruby
+      nodejs_24
+      prettierd
 
       gnome-clocks
-	devtoolbox
+      devtoolbox
       nautilus
       xfce.thunar
       xfce.tumbler
@@ -122,17 +122,14 @@
       #Dev
       marp-cli
       clang
-    llvmPackages.libclang
-    llvmPackages.llvm
-    pkg-config
       llvm
       gcc
       cmake
       gnumake
       fd
       bat
+      pnpm
       #Blender stuf
-      mesa
       libGL
       vulkan-loader
 
@@ -149,8 +146,7 @@
       gtk3
       gtk4
       glib
-	font-manager
-      #lxappearance-gtk2
+      font-manager
       gnome-themes-extra
       adwaita-icon-theme
       gtk-engine-murrine
@@ -161,9 +157,9 @@
       qt5.qtwayland
       qt6.qtwayland
       pkgs.dunst
-      waybar
       hyprpanel
 
+      nwg-look
       nwg-displays
       wofi
       pam
@@ -179,26 +175,27 @@
       libnotify
       bibata-cursors
 
-libclang
-gpp
- libcxx
-	libcxxrt
-	clang
+      libcxxrt
+      clang
       #Nix Stuff
       home-manager
       nh
       alejandra
+      #rust stuff
+      neovim
+      helix
+      vimPlugins.rustaceanvim
+      vimPlugins.nvim-dap-lldb
     ])
     ++ (with pkgs-unstable; [
+       luajitPackages.rustaceanvim
+      lldb_21
+      clippy
+      cargo
       rustc
+      rustup
       rust-analyzer
       rustfmt
       blender
-      cargo
-	opencv
-	potrace
-	imagemagick
-
-      waypaper
     ]);
 }

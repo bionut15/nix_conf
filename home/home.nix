@@ -137,9 +137,9 @@ in {
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    initExtra = ''
+    initContent = ''
       eval "$(starship init zsh)"
-    
+
           export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
           export LLVM_CONFIG_PATH=${pkgs.llvmPackages.llvm}/bin/llvm-config
           export LD_LIBRARY_PATH=${pkgs.llvmPackages.libclang.lib}/lib:$LD_LIBRARY_PATH
@@ -150,6 +150,7 @@ in {
       v = "nvim";
       n = "nnn";
       N = "sudo nnn";
+	cr="cargo run";
       home = "cd $HOME";
       devel = "cd $HOME/Devel";
       ls = "lsd";
@@ -202,36 +203,43 @@ in {
     historyLimit = 1400;
 
     extraConfig = ''
-      			   set -g default-terminal "$TERM"
-      set -ag terminal-overrides ",$TERM:Tc"
-                           set -g prefix  C-s
-                           unbind r
-                           bind r source-file ~/.config/tmux/tmux.conf
+						   set -g base-index 1
+						   setw -g pane-base-index 1
+						   
+						   set -g default-terminal "screen-256color"
+                  			   set -g default-terminal "$TERM"
+                  set -ag terminal-overrides ",$TERM:Tc"
+                                       set -g prefix  C-s
+                                       unbind r
+                                       bind r source-file ~/.config/tmux/tmux.conf
 
 
-              		bind c new-window -c "#{pane_current_path}"
-                           bind % split-window -v -c "#{pane_current_path}"
-                           bind '"' split-window -h -c "#{pane_current_path}"
+                          		bind c new-window -c "#{pane_current_path}"
+                                       bind % split-window -v -c "#{pane_current_path}"
+                                       bind '"' split-window -h -c "#{pane_current_path}"
 
-                           bind-key h select-pane -L
-                           bind-key j select-pane -D
-                           bind-key k select-pane -U
-                           bind-key l select-pane -L
-            set-option -sa terminal-overrides ",xterm*:Tc"
+                                       bind-key h select-pane -L
+                                       bind-key j select-pane -D
+                                       bind-key k select-pane -U
+                                       bind-key l select-pane -L
+                        set-option -sa terminal-overrides ",xterm*:Tc"
 
-                           # window status
-			   # Global style: only one color used
-set-option -g status-style "bg=colour0,fg=colour15"
+      set -g status-position bottom
+      set -g status-justify left
+      set -g status-style 'fg=yellow'
 
-set-option -g status-left "#[default]   #S "
+      set -g status-left ""
+      set -g status-left-length 10
 
-set-option -g status-right "#[default]  %d.%m.%Y | 󰥔  %H:%M |   #h"
+      set -g status-right-style "fg=black bg=yellow"
+      set -g status-right "%Y-%m-%d %H:%M "
+      set -g status-right-length 50
 
-set-window-option -g window-status-current-format "#[default]|   #W #{?window_zoomed_flag,*Z,} |"
+      setw -g window-status-current-style "fg=black bg=yellow"
+      setw -g window-status-current-format " #I #W #F "
 
-set-window-option -g window-status-format "#[default]| #I | #W |"
-
-
+      setw -g window-status-style "fg=yellow bg=black"
+      setw -g window-status-format " #I #[fg=white]#W #[fg=yellow]#F "
     '';
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
@@ -301,7 +309,7 @@ set-window-option -g window-status-format "#[default]| #I | #W |"
   };
 
   programs.waybar = {
-    enable = true;
+    enable = false;
     settings = {
       mainBar = {
         layer = "top";
@@ -861,33 +869,33 @@ set-window-option -g window-status-format "#[default]| #I | #W |"
       };
       env.TERM = "xterm-256color";
 
-	window = {
-		blur =true;
-		opacity = 0.9;
-	};
+      window = {
+        blur = true;
+        opacity = 0.9;
+      };
       window.padding = {
-        x = 25;
-        y = 25;
+        x = 35;
+        y = 35;
       };
 
       font = {
         normal = {
-          family = "GeistMono Nerd Font";
+          family = "IosevkaTerm Nerd Font Propo";
           style = "Regular";
         };
         bold = {
-          family = "GeistMono Nerd Font";
+          family = "IosevkaTerm Nerd Font Propo";
           style = "Bold";
         };
         italic = {
-          family = "GeistMono Nerd Font";
+          family = "IosevkaTerm Nerd Font Propo";
           style = "MediumItalic";
         };
         bold_italic = {
-          family = "GeistMono Nerd Font";
+          family = "IosevkaTerm Nerd Font Propo";
           style = "BoldItalic";
         };
-        size = 12;
+        size = 14;
       };
 
       scrolling.multiplier = 5;

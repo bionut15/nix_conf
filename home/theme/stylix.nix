@@ -26,7 +26,7 @@
 
   stylix = {
     enable = true;
-    polarity = "light";
+    polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
     image = ./ghibliwall.png;
 
@@ -36,7 +36,7 @@
 
     targets.kitty.enable = false;
     targets.alacritty.enable = false;
-    targets.tmux.enable = true;
+    targets.tmux.enable = false;
     targets.hyprland.enable = false;
     targets.waybar.enable = false;
 
@@ -58,10 +58,6 @@
         package = pkgs.nerd-fonts.geist-mono;
         name = "GeistMono Nerd Font Propo";
       };
-      #sansSerif = {
-      #  package = pkgs.nerd-fonts.dejavu-sans-mono;
-      #  name = "DejaVuSansM Nerd Font Mono";
-      #};
       serif = {
         package = pkgs.nerd-fonts.dejavu-sans-mono;
         name = "DejaVu Serif";

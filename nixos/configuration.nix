@@ -10,6 +10,7 @@
     ./../hosts/desktop_apps.nix
     ./../hosts/programs.nix
     ./../hosts/services.nix
+    ./../hosts/NixPad/nvf_config.nix
   ];
 
   boot = {
@@ -87,11 +88,15 @@
   fonts = {
     fontDir.enable = true;
     packages = [
+      pkgs.nerd-fonts.fira-code
+      pkgs.nerd-fonts.fira-mono
       pkgs.nerd-fonts.jetbrains-mono
-       pkgs.nerd-fonts.caskaydia-mono
-       pkgs.nerd-fonts.noto
-       pkgs.nerd-fonts.geist-mono
-  pkgs.nerd-fonts.dejavu-sans-mono
+      pkgs.nerd-fonts.caskaydia-mono
+      pkgs.nerd-fonts.noto
+      pkgs.nerd-fonts.geist-mono
+      pkgs.nerd-fonts.dejavu-sans-mono
+	pkgs.nerd-fonts.iosevka-term
+	pkgs.nerd-fonts.iosevka-term-slab
     ];
   };
 
@@ -117,13 +122,12 @@
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
     VISUAL = "nvim";
+    RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
   };
 
   hardware = {
     graphics.enable = true;
     cpu.amd.updateMicrocode = true;
-
-    pulseaudio.enable = false;
 
     bluetooth = {
       enable = true;

@@ -7,11 +7,12 @@
       splash = false;
       splash_offset = 2.0;
 
-      preload = ["/home/ionut/Pictures/Minecraft_1.jpeg"];
+      preload = ["/home/ionut/Pictures/akasaka1.png"];
 
       wallpaper = [
-        "HDMI-A-1,/home/ionut/Pictures/Minecraft_1.jpeg"
-        "eDP-1,/home/ionut/Pictures/Minecraft_1.jpeg"
+	  #      "HDMI-A-1,/home/ionut/Pictures/akasaka1.png"
+	  # "eDP-1,/home/ionut/Pictures/akasaka1.png"
+        ",/home/ionut/Pictures/akasaka1.png"
       ];
     };
   };
