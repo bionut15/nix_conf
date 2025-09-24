@@ -25,8 +25,11 @@
       brillo
       tree
       ripgrep
+
       pass
 	neomutt
+
+	mutt-wizard
 
       brightnessctl
       networkmanager
