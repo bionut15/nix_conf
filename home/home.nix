@@ -150,7 +150,7 @@ in {
       v = "nvim";
       n = "nnn";
       N = "sudo nnn";
-	cr="cargo run";
+      cr = "cargo run";
       home = "cd $HOME";
       devel = "cd $HOME/Devel";
       ls = "lsd";
@@ -203,10 +203,10 @@ in {
     historyLimit = 1400;
 
     extraConfig = ''
-						   set -g base-index 1
-						   setw -g pane-base-index 1
-						   
-						   set -g default-terminal "screen-256color"
+         set -g base-index 1
+         setw -g pane-base-index 1
+
+         set -g default-terminal "screen-256color"
                   			   set -g default-terminal "$TERM"
                   set -ag terminal-overrides ",$TERM:Tc"
                                        set -g prefix  C-s
@@ -895,7 +895,7 @@ in {
           family = "IosevkaTerm Nerd Font Propo";
           style = "BoldItalic";
         };
-        size = 14;
+        size = 12;
       };
 
       scrolling.multiplier = 5;

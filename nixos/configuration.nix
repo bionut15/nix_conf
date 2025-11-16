@@ -6,26 +6,38 @@
   ...
 }: {
   imports = [
-    ./../hosts/NixPad/hardware-configuration.nix
+    ./../hosts/pc_dual_boot/hardware-configuration.nix
     ./../hosts/desktop_apps.nix
     ./../hosts/programs.nix
     ./../hosts/services.nix
-    ./../hosts/NixPad/nvf_config.nix
+    # ./../hosts/NixPad/nvf_config.nix
   ];
 
-  boot = {
-    loader = {
-      efi.canTouchEfiVariables = true;
-
-      grub = {
-        enable = true;
-        devices = ["nodev"];
-        efiSupport = true;
-        useOSProber = true;
-      };
-    };
-    supportedFilesystems = ["ntfs"];
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.editor = false;
+  boot.loader.systemd-boot.extraEntries = {
+    "windows11.conf" = ''
+      title Windows 11
+      efi   /EFI/Microsoft/Boot/bootmgfw.efi
+      options root=UUID=A8E6-5E62
+    '';
   };
+
+  #boot = {
+  #  loader = {
+  #    efi.canTouchEfiVariables = true;
+
+  #    grub = {
+  #      enable = true;
+  #      devices = ["nodev"];
+  #      efiSupport = true;
+  #      useOSProber = true;
+  #    };
+  #  };
+  #  supportedFilesystems = ["ntfs"];
+  #};
 
   networking = {
     hostName = "nixPad";
@@ -95,8 +107,8 @@
       pkgs.nerd-fonts.noto
       pkgs.nerd-fonts.geist-mono
       pkgs.nerd-fonts.dejavu-sans-mono
-	pkgs.nerd-fonts.iosevka-term
-	pkgs.nerd-fonts.iosevka-term-slab
+      pkgs.nerd-fonts.iosevka-term
+      pkgs.nerd-fonts.iosevka-term-slab
     ];
   };
 
@@ -142,27 +154,6 @@
   };
   environment.etc = {
   };
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
-  # List services that you want to enable:
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 }

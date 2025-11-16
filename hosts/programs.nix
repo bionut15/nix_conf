@@ -12,14 +12,13 @@
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/ionut/.config/nix_conf/";
+      flake = "/home/ionut/nix_conf/";
     };
     neovim = {
       enable = true;
       defaultEditor = true;
     };
     git = {
-
     };
 
     #SSH config

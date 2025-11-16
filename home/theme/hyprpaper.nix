@@ -10,8 +10,8 @@
       preload = ["/home/ionut/Pictures/akasaka1.png"];
 
       wallpaper = [
-	  #      "HDMI-A-1,/home/ionut/Pictures/akasaka1.png"
-	  # "eDP-1,/home/ionut/Pictures/akasaka1.png"
+        #      "HDMI-A-1,/home/ionut/Pictures/akasaka1.png"
+        # "eDP-1,/home/ionut/Pictures/akasaka1.png"
         ",/home/ionut/Pictures/akasaka1.png"
       ];
     };

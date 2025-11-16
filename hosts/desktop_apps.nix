@@ -16,8 +16,16 @@
       bluez-tools
       bluez
       libgtop
+      sbctl
+      efibootmgr
 
-      python3
+	tk
+	python312Full
+      (python3.withPackages (python-pkgs:
+        with python-pkgs; [
+          tkinter
+          customtkinter
+        ]))
       #Utils
       rar
       unzip
@@ -27,9 +35,9 @@
       ripgrep
 
       pass
-	neomutt
+      neomutt
 
-	mutt-wizard
+      mutt-wizard
 
       brightnessctl
       networkmanager
@@ -63,7 +71,6 @@
       texliveTeTeX
       live-server
 
-      #obsidian
       obs-studio
       ffmpeg
 
@@ -82,7 +89,6 @@
       libreoffice
 
       firefox
-      obsidian
 
       fastfetch
 
@@ -191,7 +197,7 @@
       vimPlugins.nvim-dap-lldb
     ])
     ++ (with pkgs-unstable; [
-       luajitPackages.rustaceanvim
+      luajitPackages.rustaceanvim
       lldb_21
       clippy
       cargo

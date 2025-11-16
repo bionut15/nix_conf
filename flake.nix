@@ -7,15 +7,21 @@
     unstable.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.3";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:danth/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
-   nvf= {
-        url="github:notashelf/nvf";
-        inputs.nixpkgs.follows = "unstable";
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     pollymc = {
@@ -34,6 +40,7 @@
     stylix,
     nvf,
     nixos-hardware,
+    lanzaboote,
     ...
   }: let
     system = "x86_64-linux";
@@ -47,7 +54,7 @@
         ./home/home.nix
       ];
     };
-    nixosConfigurations.nixPad = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.pc_dual_boot = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
         inherit inputs;
@@ -55,8 +62,10 @@
         inherit pkgs-unstable;
       };
       modules = [
+        lanzaboote.nixosModules.lanzaboote
+        ./hosts/pc_dual_boot/lanzaboote.nix
         ./nixos/configuration.nix
-	  nvf.nixosModules.default
+        nvf.nixosModules.default
       ];
     };
   };

@@ -31,7 +31,7 @@
 
       monitor = [
         "eDP-1,preferred,auto,1"
-        "HDMI-A-1,preferred,auto,0.83"
+        "HDMI-A-1,preferred,auto,1"
       ];
 
       env = [
