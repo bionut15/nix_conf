@@ -18,13 +18,18 @@
       libgtop
       sbctl
       efibootmgr
-
-	tk
-	python312Full
-      (python3.withPackages (python-pkgs:
+      ntfs3g
+      chntpw
+      tk
+      (python313.withPackages (python-pkgs:
         with python-pkgs; [
+          pip
           tkinter
+          python312Full
+          opencv4
           customtkinter
+          pytesseract
+          regex
         ]))
       #Utils
       rar
