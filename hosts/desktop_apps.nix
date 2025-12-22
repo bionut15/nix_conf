@@ -76,6 +76,7 @@
       texliveTeTeX
       live-server
 
+      obsidian
       obs-studio
       ffmpeg
 
@@ -197,6 +198,7 @@
       alejandra
       #rust stuff
       neovim
+      lazygit
       helix
       vimPlugins.rustaceanvim
       vimPlugins.nvim-dap-lldb
@@ -207,7 +209,7 @@
       clippy
       cargo
       rustc
-      rustup
+      # rustup
       rust-analyzer
       rustfmt
       blender

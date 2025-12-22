@@ -18,13 +18,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.editor = false;
   boot.loader.systemd-boot.sortKey = "20-nixos";
-  boot.loader.systemd-boot.windows."windows11".sortKey = "10-windows";
+  # boot.loader.systemd-boot.windows."windows11".sortKey = "10-windows";
 
   boot.loader.systemd-boot.extraEntries = {
     "windows11.conf" = ''
-      title Windows 11
-      efi   /EFI/Microsoft/Boot/bootmgfw.efi
-      options root=UUID=A8E6-5E62
+       title Windows 11
+       efi   /EFI/Microsoft/Boot/bootmgfw.efi
+       options root=UUID=A8E6-5E62
+      sort-key 10-windows
     '';
   };
 

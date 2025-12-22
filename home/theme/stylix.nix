@@ -27,7 +27,7 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
     image = ./ghibliwall.png;
 
     targets.gtk.enable = true;
@@ -38,7 +38,6 @@
     targets.alacritty.enable = false;
     targets.tmux.enable = false;
     targets.hyprland.enable = false;
-    targets.waybar.enable = false;
 
     opacity = {
       terminal = 0.95;
