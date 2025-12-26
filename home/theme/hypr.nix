@@ -71,7 +71,7 @@
         blur = {
           enabled = true;
           size = 6;
-          passes = 2;
+          passes = 3;
           ignore_opacity = true;
           noise = 0.08;
           contrast = 1.5;

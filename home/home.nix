@@ -42,8 +42,10 @@ in {
   #Programs configs
   programs.git = {
     enable = true;
-    userName = "Ionut";
+    userName = "bionut15";
     userEmail = "barborionut15@gmail.com";
+    signing.format = "ssh";
+    signing.key = "~/.ssh/id";
   };
   programs.neovim.defaultEditor = true;
 
@@ -138,12 +140,20 @@ in {
     syntaxHighlighting.enable = true;
 
     initContent = ''
-      eval "$(starship init zsh)"
+      # Start ssh-agent if not running
+      if [ -z "$SSH_AUTH_SOCK" ]; then
+        eval "$(ssh-agent -s)" >/dev/null
+      fi
 
-          export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
-          export LLVM_CONFIG_PATH=${pkgs.llvmPackages.llvm}/bin/llvm-config
-          export LD_LIBRARY_PATH=${pkgs.llvmPackages.libclang.lib}/lib:$LD_LIBRARY_PATH
-          export PKG_CONFIG_PATH=${pkgs.opencv}/lib/pkgconfig
+      # Add key only if not already added
+      ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/id >/dev/null 2>&1
+
+                  eval "$(starship init zsh)"
+
+                      export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
+                      export LLVM_CONFIG_PATH=${pkgs.llvmPackages.llvm}/bin/llvm-config
+                      export LD_LIBRARY_PATH=${pkgs.llvmPackages.libclang.lib}/lib:$LD_LIBRARY_PATH
+                      export PKG_CONFIG_PATH=${pkgs.opencv}/lib/pkgconfig
 
     '';
     shellAliases = {

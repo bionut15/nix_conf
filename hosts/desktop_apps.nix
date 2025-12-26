@@ -127,6 +127,7 @@
       nodejs_24
       prettierd
 
+      gnome-keyring
       gnome-clocks
       devtoolbox
       nautilus
