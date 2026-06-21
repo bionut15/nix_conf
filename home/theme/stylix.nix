@@ -19,7 +19,7 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "kde";
     style.package = pkgs.adwaita-qt;
     style.name = "adwaita-dark";
   };
@@ -28,10 +28,10 @@
     enable = true;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
-    image = ./ghibliwall.png;
+    image = ./house.jpg;
 
     targets.gtk.enable = true;
-    targets.kde.enable = true;
+    targets.kde.enable = false;
     targets.dunst.enable = true;
 
     targets.kitty.enable = false;
@@ -40,7 +40,7 @@
     targets.hyprland.enable = false;
 
     opacity = {
-      terminal = 0.95;
+      terminal = 0.85;
     };
     cursor = {
       name = "Bibata-Modern-Ice";

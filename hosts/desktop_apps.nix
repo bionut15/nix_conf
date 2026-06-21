@@ -25,7 +25,7 @@
         with python-pkgs; [
           pip
           tkinter
-          python312Full
+          # python312Full
           opencv4
           customtkinter
           pytesseract
@@ -38,7 +38,7 @@
       brillo
       tree
       ripgrep
-
+      yt-dlp
       pass
       neomutt
 
@@ -95,6 +95,7 @@
       libreoffice
 
       firefox
+      inputs.helium.defaultPackage.${system}
 
       fastfetch
 
@@ -105,7 +106,7 @@
       wineWowPackages.stable
       wineWowPackages.waylandFull
 
-      bottles
+      (bottles.override {removeWarningPopup = true;})
       fragments
       alacritty
 
@@ -199,6 +200,7 @@
       alejandra
       #rust stuff
       neovim
+      krita
       lazygit
       helix
       vimPlugins.rustaceanvim
@@ -213,6 +215,7 @@
       # rustup
       rust-analyzer
       rustfmt
+
       blender
     ]);
 }

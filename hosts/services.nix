@@ -12,6 +12,7 @@
     xserver = {
       enable = true;
       videoDrivers = ["amdgpu"];
+      displayManager.startx.enable = true;
     };
 
     greetd = {
@@ -27,6 +28,15 @@
     gnome.gnome-keyring.enable = true;
     upower = {
       enable = true;
+    };
+
+    desktopManager.plasma6.enable = true;
+
+    displayManager.sddm = {
+      enable = true;
+
+      # To use Wayland (Experimental for SDDM)
+      wayland.enable = true;
     };
 
     printing = {

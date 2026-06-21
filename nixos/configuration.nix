@@ -124,12 +124,14 @@
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
     VISUAL = "nvim";
+    QT_QPA_PLAFORM = "wayland";
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
   };
 
   hardware = {
     graphics.enable = true;
     cpu.amd.updateMicrocode = true;
+    opengl.enable = true;
 
     bluetooth = {
       enable = true;

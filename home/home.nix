@@ -42,8 +42,8 @@ in {
   #Programs configs
   programs.git = {
     enable = true;
-    userName = "bionut15";
-    userEmail = "barborionut15@gmail.com";
+    settings.user.name = "bionut15";
+    settingsuser.email = "barborionut15@gmail.com";
     signing.format = "ssh";
     signing.key = "~/.ssh/id";
   };

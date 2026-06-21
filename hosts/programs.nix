@@ -23,9 +23,9 @@
     };
 
     #SSH config
-    ssh = {
-      startAgent = true;
-    };
+    # ssh = {
+    #   startAgent = true;
+    # };
 
     xwayland.enable = true;
 
