@@ -53,6 +53,21 @@
         ./home/home.nix
       ];
     };
+    # Nixos config for surface pro 7 plus
+    nixosConfigurations.nix_surface = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {
+        inherit inputs;
+        inherit system;
+        inherit pkgs-unstable;
+      };
+      modules = [
+        lanzaboote.nixosModules.lanzaboote
+        ./hosts/NixSurface/configuration.nix
+        nvf.nixosModules.default
+      ];
+    };
+
     nixosConfigurations.pc_dual_boot = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
